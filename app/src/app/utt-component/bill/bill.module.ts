@@ -11,7 +11,6 @@ import { BillElectricWarterSearchComponent } from './bill-electric-water/bill-el
 import { BillElectricWaterFormComponent } from './bill-electric-water/bill-electric-water-form/bill-electric-water-form.component';
 import { BillOrtherSearchComponent } from './bill-orther/bill-orther-search/bill-orther-search.component';
 import { BillOrtherFormComponent } from './bill-orther/bill-orther-form/bill-orther-form.component';
-
 @NgModule({
   declarations: [BillServiceTypeSeachComponent, BillServiceTypeFormComponent, BillElectricWarterSearchComponent, BillElectricWaterFormComponent, BillOrtherSearchComponent, BillOrtherFormComponent],
   imports: [

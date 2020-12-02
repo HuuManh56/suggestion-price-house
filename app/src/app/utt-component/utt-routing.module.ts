@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: "statistical",
     loadChildren: "./statistical/statistical.module#StatisticalModule"
+  },
+  {
+    path: "house",
+    loadChildren: "./house/house.module#HouseModule"
   }
 ];
 
