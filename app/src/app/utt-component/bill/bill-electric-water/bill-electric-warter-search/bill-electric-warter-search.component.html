@@ -1,0 +1,156 @@
+<div *ngIf="havePermission('ROLE_GVCN')">
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+      <div class="panel-heading">
+          <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span>Thông tin tìm kiếm</span>
+          </strong>
+      </div>
+      <div class="panel-body padding-xl ui-g">
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã hóa đơn</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="codeBill" maxlength="50" autofocus>
+            </div>
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Mã căn hộ</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <p-dropdown [showClear]="true" placeholder = "Hãy chọn" [options]="apartmentList" [formControl]="f['idApartment']" [filter]="true"></p-dropdown>
+            </div>
+          </div>
+          
+          <!-- <div class="ui-g-12" >
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Từ ngày</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <date-picker [property]="f['fromDate']" dateFormat='dd/mm/yy'></date-picker>
+               <app-control-messages [control]="f['fromDate']"></app-control-messages>
+            </div>
+  
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Đến ngày </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <date-picker [property]="f['toDate']" dateFormat='dd/mm/yy'></date-picker>
+               <app-control-messages [control]="f['toDate']"></app-control-messages>
+            </div>
+          </div> -->
+
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Loại hóa đơn</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3 nowrap">
+              <div class="form-check-inline">
+                <label class="i-checks">
+                  <input type="radio"  formControlName="type" class="form-check-input control-label" id="type1" [value]="-1" name="type" [checked]="true">
+                  <i></i>
+                  Tất cả
+                </label>
+              </div>
+              <div class="form-check-inline">
+                <label class="i-checks">
+                  <input type="radio"  formControlName="type" class="form-check-input control-label" id="type2" [value]="1" name="type">
+                  <i></i>
+                  Hóa đơn điện
+                </label>
+              </div>
+              <div class="form-check-inline">
+                <label class="i-checks">
+                  <input type="radio"  formControlName="type" class="form-check-input control-label" id="type2" [value]="2" name="type">
+                  <i></i>
+                  Hóa đơn nước
+                </label>
+              </div>
+              <app-control-messages [control]="f['type']"></app-control-messages>
+            </div>
+          </div>
+      </div>
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info" ><i class="fa fa-search"></i> Tìm kiếm</button>
+      </div>
+
+
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSearchHouse();" class="btn btn-sm btn-info" ><i class="fa fa-search"></i> Tìm kiếm nha cua Manh</button>
+      </div>
+
+
+  </form>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading vt-relative">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Danh sách hóa đơn</span>
+    </strong>
+    <div class="vt-absolute vt-shotcut-button-in-heading">
+      <div>
+      <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Thêm mới</button>
+      </div>
+      
+    </div>
+  </div>
+  <div class="panel-body panel-table">
+    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length" (onLazyLoad)="processSearch($event)"
+      [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal" [responsive]="true" [lazyLoadOnInit]="false"
+      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" >
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col class="size-1">
+          <col class="size-1">
+          <col class="size-1">
+          <col class="size-4">
+          <col class="size-4">
+          <col class="size-4">
+          <col class="size-4">
+          <col class="size-4">
+          <col class="size-4">
+          <col class="size-4">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th >STT</th>
+          <th >Sửa</th>
+          <th >Xóa</th>
+          <th pSortableColumn="code" >Mã hóa đơn  <p-sortIcon [field]="'codeBill'"></p-sortIcon></th>
+          <th pSortableColumn="name" >Mã căn hộ <p-sortIcon [field]="'name'"></p-sortIcon></th>
+          <th >Chủ hộ </th>
+          <th >SĐT </th>
+          <th >Số tiền </th>
+          <th >Trạng thái </th>
+          <th >Loại hóa đơn </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr>
+          <td class="vt-align-center">{{index+1}}</td>
+          <td class="vt-align-center" >
+            <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'"><i class="fa fa-edit"></i></a>
+          </td>
+          <td class="vt-align-center">
+            <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'"><i class="fa fa-trash-alt"></i></a>
+          </td>
+          <td class="vt-align-center">{{item.codeBill}}</td>
+         
+          <td class="vt-align-center" >  {{item.codeApartment}} </td>
+          <td class="vt-align-left" >  {{item.personName}} </td>
+          <td class="vt-align-left" > {{item.numberPhone}} </td>
+          <td class="vt-align-right" >  {{item.totalPrice}} </td>
+          <td class="vt-align-center" >  {{item.status}} </td>
+          <td class="vt-align-center" *ngIf="item.type == 1" > Hóa đơn điện </td>
+          <td class="vt-align-center" *ngIf="item.type == 2" > Hóa đơn nước </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr class="emptymessage">
+          <td [attr.colspan]="6">
+              Không tồn tại bản ghi
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <table-footer [resultList]="resultList"></table-footer>
+      </ng-template>
+    </p-table>
+  </div>
+  </div>
+</div>

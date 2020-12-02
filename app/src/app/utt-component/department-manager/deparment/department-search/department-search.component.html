@@ -1,0 +1,126 @@
+<div *ngIf="havePermission('ROLE_SV')">
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+      <div class="panel-heading">
+          <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span>Thông tin tìm kiếm</span>
+          </strong>
+      </div>
+      <div class="panel-body padding-xl ui-g">
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="50" autofocus>
+            </div>
+  
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="200" >
+            </div>
+          </div>
+          <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Trạng thái</label>
+          <div class="ui-g-12 ui-md-6 ui-lg-3 nowrap">
+            <div class="form-check-inline">
+              <label class="i-checks">
+                <input type="checkbox"  formControlName="haveLive" class="form-check-input control-label" id="gender_1" [value]="1" name="haveLive">
+                <i></i>
+                Có người ở
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="i-checks">
+                <input type="checkbox"  formControlName="notHaveLive" class="form-check-input control-label" id="gender_2" [value]="1" name="notHaveLive">
+                <i></i>
+                Không có người ở
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info" ><i class="fa fa-search"></i> Tìm kiếm</button>
+      </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading vt-relative">
+  <strong class="text-u-c">
+    <i class="fa fa-th"></i>
+    <span> Danh sách căn hộ</span>
+  </strong>
+  <div class="vt-absolute vt-shotcut-button-in-heading">
+    <div>
+    <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Thêm mới</button>
+    </div>
+  </div>
+</div>
+<div class="panel-body panel-table">
+  <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length" (onLazyLoad)="processSearch($event)"
+    [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal" [responsive]="true" [lazyLoadOnInit]="false"
+    tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" >
+    <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+        <col class="size-1">
+        <col class="size-1">
+        <col class="size-1">
+        <col class="size-3">
+        <col class="size-6">
+        <col class="size-3">
+        <col class="size-3">
+        <col class="size-3">
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th >STT</th>
+        <th >Sửa</th>
+        <th >Xóa</th>
+        <th pSortableColumn="code" >Mã phòng<p-sortIcon [field]="code"></p-sortIcon></th>
+        <th pSortableColumn="name" >Tên phòng<p-sortIcon [field]="'name'"></p-sortIcon></th>
+        <th >Giá (triệu VNĐ) </th>
+        <th >Diện tích (m2) </th>
+        <th >Trạng thái </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-index="rowIndex">
+      <tr>
+        <td class="vt-align-center">{{index+1}}</td>
+        <td class="vt-align-center" >
+          <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'"><i class="fa fa-edit"></i></a>
+        </td>
+        <td class="vt-align-center">
+          <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'"><i class="fa fa-trash-alt"></i></a>
+        </td>
+        <td class="vt-align-center">{{item.code}}</td>
+        <td>{{item.name}}</td>
+        <td class="vt-align-center">
+            {{item.price}}
+        </td>
+        <td class="vt-align-center">
+          {{item.area}}
+        </td>
+        <td *ngIf = "item.amountPersonOfApart > 0">
+          Đang có người ở
+        </td>
+        <td *ngIf = "item.amountPersonOfApart == 0">
+          Không có người ở
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr class="emptymessage">
+        <td [attr.colspan]="6">
+            Không tồn tại bản ghi
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <table-footer [resultList]="resultList"></table-footer>
+    </ng-template>
+  </p-table>
+</div>
+</div>
+</div>

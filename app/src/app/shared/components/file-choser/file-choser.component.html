@@ -1,0 +1,25 @@
+<div class="file-group" title="{{ fileName || 'Chưa chọn tệp tin' }}">
+  <a href="javascript:;" class="file-control v-from file-process" [ngClass]="{hasFile: files}" >
+    <input *ngIf="!disabled" type="file"
+           style="width: auto; visibility:hidden;"
+           class="form-control"
+           (change)="onChange($event)"
+           [attr.id]="htmlId"
+           #file
+    >
+    <label [attr.for]="htmlId" class="file-container" *ngIf="files !== emptyFile" title="'Chưa chọn tệp tin'">
+      <span class="file-text">{{ fileName || 'Chưa chọn tệp tin' }}</span>
+      <span class="file-button btn-chose-file">Chưa chọn tệp tin</span>
+    </label>
+    <div class="file-container hasFileAttachment" *ngIf="files === emptyFile" title="{{fileName}}" >
+      <span class="file-text" (click)="downloadFile()">{{ fileName || 'Chưa chọn tệp tin' }}</span>
+      <span class="file-button btn-chose-file" (click)="downloadFile()">
+        <span class="glyphicons glyphicons-disk-save" title="'Tải về'"></span>
+      </span>
+    </div>
+    <span *ngIf="!disabled" title="'Xóa file'" (click)="delete()" class="btn-delete-file glyphicons glyphicons-minus-sign"></span>
+  </a>
+  <small *ngIf="isError" class="text-danger errorMessage">
+    {{ fileErrorText }}
+  </small>
+</div>

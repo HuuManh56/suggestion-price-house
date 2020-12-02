@@ -1,0 +1,38 @@
+<div class="nation-picker display-table picker w100">
+  <div class="table-cell nation-input">
+    <p-dropdown *ngIf="!group"
+      [options]="listData"
+      [(ngModel)]="selectedValue"
+      [filter]="true"
+      [placeholder]="placeHolder"
+      (ngModelChange)="selectedChange()"
+      [showClear]="checkShowClear"
+      [disabled]="disabled ? true : false"
+      [autofocus] = "autofocus"
+      [appendTo]="appendTo"
+      [attr.dataName]="property.propertyName"
+      [emptyFilterMessage]="emptyFilterMessage"
+      [resetFilterOnHide] = "true"
+      #dropDown
+      >
+    </p-dropdown>
+    <p-dropdown *ngIf="group"
+      [options]="listDataGroup"
+      [(ngModel)]="selectedValue"
+      [filter]="true"
+      [placeholder]="placeHolder"
+      (ngModelChange)="selectedChange()"
+      [showClear]="checkShowClear"
+      [disabled]="disabled ? true : false"
+      [autofocus] = "autofocus"
+      [appendTo]="appendTo"
+      [attr.dataName]="property.propertyName"
+      [emptyFilterMessage]="emptyFilterMessage"
+      [group]="true"
+      [resetFilterOnHide] = "true"
+      #dropDown
+      >
+    </p-dropdown>
+  </div>
+</div>
+

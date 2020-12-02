@@ -1,0 +1,29 @@
+<!-- ============================================================== -->
+<!-- sidebar -->
+<!-- ============================================================== -->
+ <div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
+    <!-- User profile image -->
+    <div class="profile-img"> <img src="assets/images/users/profile.png" alt="user"> </div>
+    <!-- User profile text-->
+    <!-- ============================================================== -->
+    <!-- Profile - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <div class="profile-text"><a [matMenuTriggerFor]="sdprofile" class=""> {{userInfo.fullName}} <i class="ti-angle-down font-12 m-l-5"></i></a></div>
+    <mat-menu #sdprofile="matMenu" class="mymegamenu">
+        <button (click)="changePassword();" mat-menu-item>
+            <mat-icon>lock</mat-icon> Đổi mật khẩu
+        </button>
+        <button (click)="userInformation();" mat-menu-item>
+            <mat-icon>account_box</mat-icon> Thông tin cá nhân
+        </button>
+        <button (click)="logOut();" mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon> Đăng xuất
+        </button>
+    </mat-menu>
+    
+</div>
+
+<!-- <p-slideMenu [model]="pItems"></p-slideMenu> -->
+
+
+<p-panelMenu [model]="items" [multiple] = "false" [style]="{'width':'300px'}"></p-panelMenu>

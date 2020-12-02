@@ -1,0 +1,70 @@
+<div class="panel panel-default">
+  <form id="formUserInfo" [formGroup]="formSave">
+      <div class="panel-heading">
+          <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span > Thông tin người dùng</span>
+          </strong>
+      </div>
+      <div class="panel-body padding-xl ui-g">
+          <div class="ui-g-12">
+              <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Họ và tên <font size="2" color="red">*</font></label>
+              <div class="ui-g-12 ui-md-6 ui-lg-3">
+                  <input disabled class="form-control ng-pristine ng-invalid ng-touched" formControlName="fullName" maxlength="100">
+              </div>
+              <app-control-messages [control]="f['fullName']"></app-control-messages>
+  
+              <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Ngày sinh <font size="2" color="red">*</font></label>
+              <div class="ui-g-12 ui-md-6 ui-lg-3">
+                  <date-picker [property]="f['dateOfBirth']" dateFormat='dd/mm/yy'></date-picker>
+              </div>
+              <app-control-messages [control]="f['dateOfBirth']"></app-control-messages>
+            </div>
+  
+            <div class="ui-g-12">
+                <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã người dùng <font size="2" color="red">*</font></label>
+                <div class="ui-g-12 ui-md-6 ui-lg-3">
+                    <input disabled class="form-control ng-pristine ng-invalid ng-touched" formControlName="userCode" maxlength="100">
+                </div>
+                <app-control-messages [control]="f['userCode']"></app-control-messages>
+    
+                <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Giới tính <font size="2" color="red">*</font></label>
+                <div class="ui-g-12 ui-md-6 ui-lg-3 nowrap">
+                  <div class="form-check-inline">
+                    <label class="i-checks">
+                      <input type="radio" disabled  formControlName="gender" class="form-check-input control-label" id="gender_1" [value]="1" name="gender">
+                      <i></i>
+                      Nam
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <label class="i-checks">
+                      <input type="radio" disabled formControlName="gender" class="form-check-input control-label" id="gender_2" [value]="2" name="gender">
+                      <i></i>
+                      Nữ
+                    </label>
+                  </div>
+                  <app-control-messages [control]="f['gender']"></app-control-messages>
+                </div>
+              </div>
+  
+            <div class="ui-g-12">
+              <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Email </label>
+              <div class="ui-g-12 ui-md-6 ui-lg-3">
+                  <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="email" maxlength="50">
+              </div>
+              <app-control-messages [control]="f['email']"></app-control-messages>
+  
+              <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Số điện thoại </label>
+              <div class="ui-g-12 ui-md-6 ui-lg-3">
+                  <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="mobileNumber" maxlength="50">
+              </div>
+              <app-control-messages [control]="f['mobileNumber']"></app-control-messages>
+            </div>
+
+      </div>
+      <div class="panel-footer vt-area-button">
+          <button type="submit" (click)="processSaveOrUpdate()" class="btn btn-sm btn-info"> <i class="fa fa-save"></i> Lưu lại</button>
+      </div>
+  </form>
+</div>

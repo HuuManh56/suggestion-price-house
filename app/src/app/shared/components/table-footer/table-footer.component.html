@@ -1,0 +1,9 @@
+<div class="table-footer-sumary">
+  <span *ngIf="resultList.recordsTotal < 10 && resultList.recordsTotal > 0">
+    Tìm thấy {{resultList.recordsTotal}}, hiển thị tất cả
+  </span>
+  <span *ngIf="resultList.recordsTotal >= 10">
+    Tìm thấy {{resultList.recordsTotal}}, hiển thị từ {{parseInt(resultList.first) + 1}} đến
+    {{parseInt(resultList.first) + resultList.data.length}}
+  </span>
+</div>

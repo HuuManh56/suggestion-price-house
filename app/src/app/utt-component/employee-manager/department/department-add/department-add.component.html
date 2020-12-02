@@ -1,0 +1,40 @@
+<div class="modal-body">
+  <form id="frmSaveUser" [formGroup]="formSave">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong class="text-u-c">
+          <i class="fa fa-th"></i>
+          <span *ngIf="!idDepartment"> Thêm mới người dùng</span>
+          <span *ngIf="idDepartment"> Sửa thông tin người dùng</span>
+        </strong>
+      </div>
+      <div class="panel-body padding-xl ui-g">
+        <div class="ui-g-12">
+          <!-- code -->
+          <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã phòng ban <font size="2" color="red">*
+            </font></label>
+          <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100">
+          </div>
+          <app-control-messages [control]="f['code']"></app-control-messages>
+
+          <!-- name -->
+          <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Tên phòng ban <font size="2" color="red">*
+            </font>
+          </label>
+          <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="100">
+          </div>
+          <app-control-messages [control]="f['name']"></app-control-messages>
+        </div>
+
+      </div>
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSaveOrUpdate()" class="btn btn-sm btn-info"> <i class="fa fa-save"></i>
+          Lưu lại</button>
+        <button type="button" (click)="back();" class="btn btn-sm btn-danger"> <i class="fa fa-times"></i> Quay
+          lại</button>
+      </div>
+    </div>
+  </form>
+</div>

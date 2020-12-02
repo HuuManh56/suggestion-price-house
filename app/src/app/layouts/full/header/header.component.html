@@ -1,0 +1,45 @@
+        
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+<!-- <a href="https://wrappixel.com/templates/materialpro-angular-dashboard/" class=" m-r-20 hidden-sm-up" mat-raised-button color="warn">Upgrade To Pro</a> -->
+
+    <button [matMenuTriggerFor]="profile" mat-icon-button class="mat-icon-button" style="float:right;"> 
+        <img src="assets/images/users/account.png" alt="user" class="profile-pic"> </button>
+    <mat-menu #profile="matMenu" class="mymegamenu">
+        <div class="display-table" mat-menu-item>
+            <div class="table-cell menu-text">
+                    Họ và tên: {{userInfo.fullName}}
+            </div>
+        </div>
+
+        <hr>
+        <button (click)="changePassword();" mat-menu-item>
+            <mat-icon>lock</mat-icon> Đổi mật khẩu 
+        </button>
+        <button (click)="userInformation();" mat-menu-item>
+            <mat-icon>account_box</mat-icon> Thông tin cá nhân
+        </button>
+        <!-- <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon> Disable notifications </button> -->
+        <button (click)="logOut();" mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon> Đăng xuất
+        </button>
+    </mat-menu>
+
+    <!-- <button [matMenuTriggerFor]="notification" mat-icon-button class="mat-icon-button" style="color:gray;float: right;">
+        <mat-icon aria-label="Example icon-button with a heart icon">notifications</mat-icon>
+    </button>
+    <mat-menu #notification="matMenu" class="mymegamenu">
+        <button mat-menu-item>
+            <mat-icon>notifications</mat-icon> Notifications </button>
+        <button mat-menu-item>
+            <mat-icon>account_box</mat-icon> Profile </button>
+        <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon> Disable notifications </button>
+        <button mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon> Sign Out </button>
+    </mat-menu> -->
+
+
+

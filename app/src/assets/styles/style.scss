@@ -1,0 +1,31 @@
+/*
+Template Name: Material Pro Admin
+Author: Themedesigner
+Email: niravjoshi87@gmail.com
+File: scss
+*/
+/**
+ * Table Of Content
+ *
+ * 	1. Globals
+ *	2. Headers
+ *	3. Navigations
+ *	4. Banners
+ *	5. Footers
+ *	6. app
+ *	7. Widgets
+ *	8. Custom Templates
+ */
+
+@import 'variable';
+
+@import 'spinner';
+@import 'app';
+@import 'header';
+@import 'pages';
+@import 'sidebar';
+@import 'responsive';
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+$fa-font-path: "../../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts";
+@import "../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+@import "../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";

@@ -1,0 +1,18 @@
+<p-calendar
+  monthNavigator="true"
+  yearNavigator= "true"
+  [showIcon]="showIcon"
+  [(ngModel)]="dateValue"
+  [dateFormat]="dateFormat"
+  [view]="view"
+  [yearRange]="yearRange"
+  (onInput)="onInput($event)"
+  (onSelect)="onSelect($event)"
+  (onBlur)="onBlur($event)"
+  [placeholder]="placeholder"
+  [disabled]="disabled"
+  inputStyleClass="form-control"
+  [appendTo]="appendTo"
+  [attr.dataName]="property.propertyName"
+  >
+</p-calendar>

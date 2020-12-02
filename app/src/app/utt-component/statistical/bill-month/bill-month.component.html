@@ -1,0 +1,90 @@
+<div *ngIf="havePermission('ROLE_GVCN')">
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+      <div class="panel-heading">
+          <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span>Thông tin tìm kiếm</span>
+          </strong>
+      </div>
+        <div class="panel-body padding-xl ui-g">
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Tháng</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="month" maxlength="50" type="number" autofocus>
+            </div>
+            <app-control-messages [control]="f['month']"></app-control-messages>
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Năm</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="year" type="number" maxlength="50" >
+            </div>
+            <app-control-messages [control]="f['year']"></app-control-messages>
+          </div>
+          
+      </div>
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info" ><i class="fa fa-search"></i> Tìm kiếm</button>
+      </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading vt-relative">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Danh sách thống kê hóa đơn theo tháng</span>
+    </strong>
+    <div class="vt-absolute vt-shotcut-button-in-heading">
+    </div>
+  </div>
+  <div class="panel-body panel-table">
+    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length" (onLazyLoad)="processSearch($event)"
+      [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal" [responsive]="true" [lazyLoadOnInit]="false"
+      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" >
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col class="size-1">
+          <col class="size-1">
+          <col class="size-1">  
+          <col class="size-4">
+          <col class="size-4">
+          <col class="size-4">
+          <col class="size-4">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th >STT</th>
+          <th >Tháng</th>
+          <th >Năm</th>
+          <th >Tổng số hóa đơn điện </th>
+          <th >Tổng tiền điện/nước </th>
+          <th >Tổng số hóa đơn dịch vụ </th>
+          <th >Tổng tiền dịch/vụ </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr>
+          <td class="vt-align-center">{{index+1}}</td>
+          <td class="vt-align-center">{{item.thang}}</td>
+          <td class="vt-align-center" >  {{item.nam}} </td>
+          <td class="vt-align-left" >  {{item.hoa_don_dien_nuoc}} </td>
+          <td class="vt-align-left" > {{item.tong_tien}} </td>
+          <td class="vt-align-right" >  {{item.hoa_don_dich_vu}} </td>
+          <td class="vt-align-center" >  {{item.tong_tien_dich_vu}} </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr class="emptymessage">
+          <td [attr.colspan]="6">
+              Không tồn tại bản ghi
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <table-footer [resultList]="resultList"></table-footer>
+      </ng-template>
+    </p-table>
+  </div>
+  </div>
+</div>

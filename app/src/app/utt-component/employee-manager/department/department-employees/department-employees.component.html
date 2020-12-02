@@ -1,0 +1,179 @@
+<!-- SEARCH -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Thông tin phòng ban</span>
+    </strong>
+  </div>
+  <div class="panel-body padding-xl ui-g">
+    <!-- row -->
+    <div class="ui-g-12">
+      <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã phòng ban</label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <input class="form-control ng-pristine ng-invalid ng-touched" maxlength="200"
+          [placeholder]="departmentInfo.code" disabled>
+
+      </div>
+
+      <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên phòng ban</label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <input class="form-control ng-pristine ng-invalid ng-touched" maxlength="200"
+          [placeholder]="departmentInfo.name" disabled>
+      </div>
+    </div>
+    <!-- row -->
+    <div class="ui-g-12">
+      <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Ngày tạo</label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <input class="form-control ng-pristine ng-invalid ng-touched" maxlength="50"
+          [placeholder]="departmentInfo.createdDate" disabled>
+      </div>
+
+      <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Được tạo bởi</label>
+      <div class="ui-g-12 ui-md-6 ui-lg-3">
+        <input class="form-control ng-pristine ng-invalid ng-touched" maxlength="200"
+          [placeholder]="departmentInfo.createdBy" disabled>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SEARCH -->
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+    <div class="panel-heading">
+      <strong class="text-u-c">
+        <i class="fa fa-th"></i>
+        <span> Thông tin tìm kiếm</span>
+      </strong>
+    </div>
+    <div class="panel-body padding-xl ui-g">
+      <!-- row -->
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã nhân viên</label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="50" autofocus>
+        </div>
+
+        <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên nhân viên</label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="200">
+        </div>
+      </div>
+      <!-- row -->
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Email</label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="email" maxlength="50"
+            autofocus>
+        </div>
+
+        <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Vị trí</label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="positionsName" maxlength="200">
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer vt-area-button">
+      <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
+        <i class="fa fa-search"></i> Tìm kiếm
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- TABLE -->
+<div class="panel panel-default">
+  <div class="panel-heading vt-relative">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Danh sách nhân viên thuộc phòng {{departmentInfo.name}}</span>
+    </strong>
+    <div class="vt-absolute vt-shotcut-button-in-heading">
+
+    </div>
+  </div>
+  <div class="panel-body panel-table">
+    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
+      (onLazyLoad)="processSearch($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
+      [responsive]="true" [lazyLoadOnInit]="false"
+      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <!-- stt -->
+          <col class="size-1">
+          <!-- code -->
+          <col class="size-2">
+          <!-- name -->
+          <col class="size-4">
+          <!-- email -->
+          <col class="size-2">
+          <!-- dateOfBird -->
+          <col class="size-4">
+          <!-- positionsName -->
+          <col class="size-4">
+
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <!-- stt -->
+          <th>STT</th>
+
+          <!-- code -->
+          <th>Mã nhân viên</th>
+
+          <!-- name -->
+          <th>Tên nhân viên</th>
+
+          <!-- email -->
+          <th> Email </th>
+
+          <!-- dateOfBird -->
+          <th>Ngày sinh</th>
+
+          <!-- positionsName -->
+          <th>Vị trí</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr>
+          <!-- STT -->
+          <td class="vt-align-center">{{index+1}}</td>
+
+          <!-- Code -->
+          <td class="vt-align-center">{{item.code}}</td>
+
+          <!-- Name -->
+          <td>{{item.name}}</td>
+
+          <!-- email -->
+          <td>{{item.email}}</td>
+
+          <!-- dateOfBird -->
+          <td class="vt-align-center">
+            {{item.dateOfBird  | date: 'dd/MM/yyyy'}}
+          </td>
+
+          <!-- positionsName  -->
+          <td class="vt-align-center">
+            {{item.positionsName }}
+          </td>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr class="emptymessage">
+          <td [attr.colspan]="6">
+            Không tồn tại bản ghi
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <table-footer [resultList]="resultList"></table-footer>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

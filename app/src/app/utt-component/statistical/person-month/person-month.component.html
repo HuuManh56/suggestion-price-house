@@ -1,0 +1,83 @@
+<div *ngIf="havePermission('ROLE_GVCN')">
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+      <div class="panel-heading">
+          <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span>Thông tin tìm kiếm</span>
+          </strong>
+      </div>
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Từ ngày</label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <date-picker [property]="f['formDate']" dateFormat='dd/mm/yy'></date-picker>
+        </div>
+        <app-control-messages [control]="f['formDate']"></app-control-messages>
+
+        <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Đến ngày</label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <date-picker [property]="f['endDate']" dateFormat='dd/mm/yy'></date-picker>
+        </div>
+        <app-control-messages [control]="f['endDate']"></app-control-messages>
+      </div>
+
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info" ><i class="fa fa-search"></i> Tìm kiếm</button>
+      </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading vt-relative">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Danh sách thống kê người dân và nhân viên theo tháng</span>
+    </strong>
+    <div class="vt-absolute vt-shotcut-button-in-heading">
+    </div>
+  </div>
+  <div class="panel-body panel-table">
+    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length" (onLazyLoad)="processSearch($event)"
+      [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal" [responsive]="true" [lazyLoadOnInit]="false"
+      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" >
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col class="size-2">
+          <col class="size-2">
+          <col class="size-2">
+          <col class="size-4">
+          <col class="size-4">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th >STT</th>
+          <th >Tháng</th>
+          <th >Năm</th>
+          <th >Tổng số nhân viên trong tháng </th>
+          <th >Tổng số cư dân trong tháng </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr>
+          <td class="vt-align-center">{{index+1}}</td>
+          <td class="vt-align-center">{{item.month}}</td>
+          <td class="vt-align-center" >  {{item.year}} </td>
+          <td class="vt-align-center" >  {{item.so_nguoi}} </td>
+          <td class="vt-align-center" > {{item.so_nhan_vien}} </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr class="emptymessage">
+          <td [attr.colspan]="6">
+              Không tồn tại bản ghi
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <table-footer [resultList]="resultList"></table-footer>
+      </ng-template>
+    </p-table>
+  </div>
+  </div>
+</div>

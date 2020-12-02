@@ -1,0 +1,238 @@
+<!-- Search Group -->
+<div *ngIf="havePermission('ROLE_MAN')">
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+    <div class="panel-heading">
+      <strong class="text-u-c">
+        <i class="fa fa-th"></i>
+        <span>Thông tin tìm kiếm</span>
+      </strong>
+    </div>
+    <div class="panel-body padding-xl ui-g">
+      <!-- row -->
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Mã nhân viên</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="200">
+        </div>
+
+        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tên nhân viên</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="50" autofocus>
+        </div>
+      </div> <!-- end row -->
+      <!-- row -->
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Giới tính</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="gender" maxlength="50"
+            autofocus>
+        </div>
+        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Email</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="email" maxlength="50"
+            autofocus>
+        </div>
+      </div> <!-- end row -->
+
+      <!-- row -->
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Số điện thoại</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="phonenumber" maxlength="50"
+            autofocus>
+        </div>
+        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Lương</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="salary" maxlength="50"
+            autofocus>
+        </div>
+      </div> <!-- end row -->
+
+      <!-- row -->
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Tên phòng ban</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="departmentName" maxlength="50"
+            autofocus>
+        </div>
+        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tên vị trí</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="departmentName" maxlength="50"
+            autofocus>
+        </div>
+      </div> <!-- end row -->
+
+    </div>
+
+    <div class="panel-footer vt-area-button">
+      <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
+        <i class="fa fa-search"></i> Tìm kiếm
+      </button>
+    </div>
+  </form>
+</div>
+
+
+<!-- List Object -->
+<div class="panel panel-default">
+  <div class="panel-heading vt-relative">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Danh sách nhân viên</span>
+    </strong>
+    <div class="vt-absolute vt-shotcut-button-in-heading">
+      <div>
+        <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i>
+          Thêm mới</button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body panel-table">
+    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
+      (onLazyLoad)="processSearch($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
+      [responsive]="true" [lazyLoadOnInit]="false"
+      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <!-- STT -->
+          <col class="size-1">
+
+          <!-- Sửa -->
+          <col class="size-1">
+
+          <!-- Xóa -->
+          <col class="size-1">
+
+          <!-- Code -->
+          <col class="size-1">
+
+          <!-- Name -->
+          <col class="size-3">
+
+          <!-- dateOfBird -->
+          <col class="size-2">
+
+          <!-- gender -->
+          <col class="size-1">
+
+          <!-- email -->
+          <col class="size-4">
+
+          <!-- phonenumber -->
+          <col class="size-2">
+
+          <!-- salary -->
+          <col class="size-1">
+
+          <!-- departmentName -->
+          <col class="size-4">
+
+          <!-- positionsName -->
+          <col class="size-6">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <!-- STT -->
+          <th>STT</th>
+
+          <!-- Sửa -->
+          <th>Sửa</th>
+
+          <!-- Xóa -->
+          <th>Xóa</th>
+
+          <!-- Code -->
+          <th>Mã nhân viên </th>
+
+          <!-- Name -->
+          <th>Tên nhân viên </th>
+
+          <!-- dateOfBird -->
+          <th> Ngày sinh </th>
+
+          <!-- gender -->
+          <th> Giới tính </th>
+
+          <!-- email -->
+          <th> Email </th>
+
+          <!-- phonenumber -->
+          <th> Số điện thoại </th>
+
+          <!-- salary -->
+          <th>Mức lương ($) </th>
+
+          <!-- departmentName -->
+          <th> Tên phòng ban </th>
+
+          <!-- positionsName -->
+          <th> Vị trí công việc </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr>
+          <!-- STT -->
+          <td class="vt-align-center">{{index+1}}</td>
+
+          <!-- Edit -->
+          <td class="vt-align-center">
+            <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'">
+              <i class="fa fa-edit"></i></a>
+          </td>
+
+          <!-- Delete -->
+          <td class="vt-align-center">
+            <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'">
+              <i class="fa fa-trash-alt"></i></a>
+          </td>
+
+          <!-- Code -->
+          <td class="vt-align-center">{{item.code}}</td>
+
+          <!-- Name -->
+          <td>{{item.name}}</td>
+
+          <!-- dateOfBird -->
+          <td class="vt-align-center">{{item.dateOfBird | date: 'dd/MM/yyyy'}}</td>
+
+          <!-- gender -->
+          <td class="vt-align-center" *ngIf="item.gender===1">
+            Nam
+          </td>
+          <td class="vt-align-center" *ngIf="item.gender===0">
+            Nữ
+          </td>
+
+          <!-- email -->
+          <td>{{item.email}}</td>
+
+          <!-- phonenumber -->
+          <td>{{item.phonenumber}}</td>
+
+          <!-- salary -->
+          <td>{{item.salary}} $</td>
+
+          <!-- departmentName -->
+          <td>{{item.departmentName}}</td>
+
+          <!-- positionsName -->
+          <td>{{item.positionsName}}</td>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr class="emptymessage">
+          <td [attr.colspan]="6">
+            Không tồn tại bản ghi
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <table-footer [resultList]="resultList"></table-footer>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+</div>

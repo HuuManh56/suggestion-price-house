@@ -1,0 +1,130 @@
+<div *ngIf="havePermission('ROLE_SV')">
+  <form id="frmSaveUser" [formGroup]="formSave">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span *ngIf="!idDepartment"> Thêm mới căn hộ</span>
+              <span *ngIf="idDepartment"> Sửa thông căn hộ</span>
+            </strong>
+        </div>
+        <div class="panel-body padding-xl ui-g">
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã căn hộ <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100">
+            </div>
+            <app-control-messages [control]="f['code']"></app-control-messages>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên căn hộ <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="100">
+            </div>
+            <app-control-messages [control]="f['name']"></app-control-messages>
+          </div>
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Giá (Triệu VNĐ) <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <input type="number" step=".001" class="form-control ng-pristine ng-invalid ng-touched" formControlName="price" maxlength="50">
+            </div>
+            <app-control-messages [control]="f['price']"></app-control-messages>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Diện tích (m2) <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <input type="number"  class="form-control ng-pristine ng-invalid ng-touched" formControlName="area" maxlength="50">
+            </div>
+            <app-control-messages [control]="f['area']"></app-control-messages>
+          </div>
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mô tả</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <input cols="3" class="form-control ng-pristine ng-invalid ng-touched" formControlName="description" maxlength="100">
+            </div>
+            <app-control-messages [control]="f['description']"></app-control-messages>
+          </div>
+        </div>
+        <div class="panel-body padding-xl ui-g">
+          <strong class="text-u-c">
+            Danh sách người ở
+          </strong>
+            <!-- người quản lý -->
+              <p-table [scrollable]="false" [value]="formPerson.controls"
+                tableStyleClass="table controls-table table-wrapper b-t b-b">
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col class="size-1">
+                    <col >
+                    <col >
+                    <col >
+                    <col >
+                    <col >
+                    <col >
+                    <col>
+                  </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th >STT</th>
+                    <th ><span class="required">Cư dân</span></th>
+                    <th >Mã</th>
+                    <th >Ngày sinh</th>
+                    <th >Quên quán</th>
+                    <th >Số điện thoại</th>
+                    <th >Chủ hộ</th>
+                    <th >Thao tác</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-index="rowIndex">
+                  <tr [formGroup]="item">
+                    <td class="vt-align-center">
+                      {{index+1}}
+                    </td>
+                    <td>
+                      <p-autoComplete [formControlName] = "'name'"  [suggestions]="results" (onSelect)="setInfoPerson(item, $event)" (completeMethod)="searchAutoComplete($event)" field="name" [size]="30"
+                       [minLength]="1">
+                      </p-autoComplete>    
+                       <app-control-messages [control]="item.controls['idPerson']"></app-control-messages>
+                    </td>
+                    <td class="vt-align-center">
+                      {{item.controls['code'].value}}
+                    </td>
+                    <td class="vt-align-center">
+                      {{item.controls['dateOfBirth'].value | date: 'dd/MM/yyyy'}}
+                    </td>
+                    <td class="vt-align-center">
+                      {{item.controls['address'].value}}
+                    </td>
+                    <td class="vt-align-center">
+                      {{item.controls['phoneNumber'].value }}
+                    </td>
+                    <td class="vt-align-center">
+                      <div class="form-check-inline">
+                        <label class="i-checks">
+                          <input type="checkbox"  formControlName="isMain" class="form-check-input control-label" id="gender_2" [value]="1" name="isMain">
+                          <i></i>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="vt-align-center">
+                        <button class="btn btn-icon minus" type="button" title="xóa"
+                        (click)="removePerson(index, item)">
+                        <i class='pi pi-minus'></i>
+                      </button>
+                        <button class="btn btn-icon plus" type="button" title="thêm"
+                        (click)="addPerson(index, item)">
+                        <i class="pi pi-plus"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+        </div>
+        <div class=" vt-area-button">
+          <div class="panel-footer vt-area-button">
+            <button type="submit" (click)="save()" class="btn btn-sm btn-info"> <i class="fa fa-save"></i> Lưu lại</button>
+            <button type="button" (click)="back();" class="btn btn-sm btn-danger"> <i class="fa fa-times"></i> Quay lại</button>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>

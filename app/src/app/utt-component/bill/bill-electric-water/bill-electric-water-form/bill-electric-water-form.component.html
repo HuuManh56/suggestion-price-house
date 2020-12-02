@@ -1,0 +1,161 @@
+<div *ngIf="havePermission('ROLE_GVCN')">
+  <form id="frmSaveUser" [formGroup]="formSave">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span *ngIf="!id"> Thêm mới hóa đơn </span>
+              <span *ngIf="id"> Sửa thông hóa đơn </span>
+            </strong>
+        </div>
+        <div class="panel-body padding-xl ui-g">
+          <div class="ui-g-12" *ngIf="id">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Loại hóa đơn<font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <div class="form-check-inline" *ngIf="f['type'].value == 1">
+                <label class="i-checks">
+                  <input type="radio"  formControlName="type" class="form-check-input control-label" id="type2" [value]="1" name="type">
+                  <i></i>
+                  Hóa đơn điện
+                </label>
+              </div>
+              <div class="form-check-inline" *ngIf="f['type'].value == 2">
+                <label class="i-checks">
+                  <input type="radio"  formControlName="type" class="form-check-input control-label" id="type2" [value]="2" name="type">
+                  <i></i>
+                  Hóa đơn nước
+                </label>
+              </div>
+              <app-control-messages [control]="f['type']"></app-control-messages>
+            </div>
+            
+          </div>
+          <div class="ui-g-12" *ngIf="!id" >
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Loại hóa đơn<font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <div class="form-check-inline">
+                <label class="i-checks">
+                  <input type="radio"  formControlName="type" class="form-check-input control-label" id="type2" [value]="1" name="type">
+                  <i></i>
+                  Hóa đơn điện
+                </label>
+              </div>
+              <div class="form-check-inline">
+                <label class="i-checks">
+                  <input type="radio"  formControlName="type" class="form-check-input control-label" id="type2" [value]="2" name="type">
+                  <i></i>
+                  Hóa đơn nước
+                </label>
+              </div>
+              <app-control-messages [control]="f['type']"></app-control-messages>
+            </div>
+            
+          </div>
+          <div class="ui-g-12" *ngIf="id"  >
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã hóa đơn <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+               <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="codeBill" disabled maxlength="10">
+               <app-control-messages [control]="f['codeBill']"></app-control-messages>
+            </div>
+  
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Mã căn hộ <font size="2" color="red">*</font> </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <p-dropdown [options]="apartmentList" [formControl]="f['idApartment']" placeholder = "Hãy chọn" [showClear]="true" [filter]="true"></p-dropdown>
+              <app-control-messages [control]="f['idApartment']"></app-control-messages>
+            </div>
+          </div>
+          <div class="ui-g-12" *ngIf="!id" >
+        
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã căn hộ <font size="2" color="red">*</font> </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <p-dropdown [options]="apartmentList" [formControl]="f['idApartment']"  placeholder = "Hãy chọn" [showClear]="true" [filter]="true"></p-dropdown>
+              <app-control-messages [control]="f['idApartment']"></app-control-messages>
+            </div>
+          </div>
+          <div class="ui-g-12" >
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Từ ngày <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <date-picker [property]="f['fromDate']" dateFormat='dd/mm/yy'></date-picker>
+               <app-control-messages [control]="f['fromDate']"></app-control-messages>
+            </div>
+  
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Đến ngày <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <date-picker [property]="f['toDate']" dateFormat='dd/mm/yy'></date-picker>
+               <app-control-messages [control]="f['toDate']"></app-control-messages>
+            </div>
+          </div>
+         <!-- hóa đơn điện -->
+         
+
+          <div class="ui-g-12" *ngIf="f['type'].value == 1">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số mới <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+               <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="newNumber" maxlength="10">
+               <app-control-messages [control]="f['newNumber']"></app-control-messages>
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Số cũ <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="oldNumber" maxlength="10">
+                <app-control-messages [control]="f['oldNumber']"></app-control-messages>
+            </div>
+          </div>
+          <div class="ui-g-12" *ngIf="f['type'].value == 1">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số điện tiêu thụ </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3 control-label">
+                {{f['newNumber'].value - f['oldNumber'].value}}
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Giá điện/ 1KWH </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3 control-label">
+              {{f['unitElectrict'].value}} VNĐ
+            </div>
+            
+          </div>
+          <div class="ui-g-12" *ngIf="f['type'].value == 1">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Tổng tiền </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3 control-label">
+              {{(f['newNumber'].value - f['oldNumber'].value) * (f['unitElectrict'].value)}} VNĐ
+            </div>
+          </div>
+          <!-- Hóa đơn nước -->
+          <div class="ui-g-12" *ngIf="f['type'].value == 2">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số mới <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+               <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="newNumber" maxlength="10">
+               <app-control-messages [control]="f['newNumber']"></app-control-messages>
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Số cũ <font size="2" color="red">*</font></label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="oldNumber" maxlength="10">
+                <app-control-messages [control]="f['oldNumber']"></app-control-messages>
+            </div>
+          </div>
+          <div class="ui-g-12" *ngIf="f['type'].value == 2">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Khối nước tiêu thụ </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3 control-label">
+                {{f['newNumber'].value - f['oldNumber'].value}}
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Giá nước/ m3:</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3 control-label">
+               {{f['unitWater'].value}} VNĐ
+            </div>
+            
+          </div>
+          <div class="ui-g-12" *ngIf="f['type'].value == 2">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Tổng tiền </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3 control-label">
+              {{(f['newNumber'].value - f['oldNumber'].value) * (f['unitWater'].value) }} VNĐ
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer vt-area-button">
+            <button type="submit"  (click)="processSaveOrUpdate()" class="btn btn-sm btn-info"> <i class="fa fa-save"></i> Lưu lại</button>
+            <button type="button" (click)="back();" class="btn btn-sm btn-danger"> <i class="fa fa-times"></i> Quay lại</button>
+        </div>
+      </div>
+  </form>
+</div>
