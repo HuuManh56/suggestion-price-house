@@ -35,7 +35,7 @@ def get_initial_response():
 
 # tim kiem nha
 
-@app.route('/api/bill/bill-water-electrict/search', methods=['GET'])
+@app.route('/api/house/search', methods=['GET'])
 def get_all_house():
     args = request.args
     formSearch = {}

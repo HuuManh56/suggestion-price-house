@@ -19,7 +19,8 @@ export const CONFIG: any = {
     employees: "/employees",
     statistical: "/statistical",
     statisticalPerson :"/statistical-person",
-    report: "/report"
+    report: "/report",
+    house:"/house"
   }
 };
 
@@ -87,5 +88,6 @@ export enum RESOURCE {
   AVERAGE_SCORE = "AVERAGE_SCORE",
   USER = "USER",
   USER_INFO = "USER_INFO",
-  BILL = "BILL"
+  BILL = "BILL",
+  HOUSE = "HOUSE"
 }
