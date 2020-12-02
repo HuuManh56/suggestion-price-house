@@ -31,7 +31,6 @@ def get_initial_response():
     return resp
 
 
-@app.route("/create-house", methods=['POST'])
 
 # tim kiem nha
 
@@ -49,6 +48,7 @@ def get_all_house():
     return jsonify(output);
 
 
+@app.route("/create-house", methods=['POST'])
 # them moi nha
 def create_house():
     try:
