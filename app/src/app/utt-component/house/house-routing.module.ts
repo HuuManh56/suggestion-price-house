@@ -7,7 +7,7 @@ import { ManagerHouseComponent } from './manager-house/manager-house.component';
 
 const routes: Routes = [  
   {
-    path: 'bill-service-type',
+    path: '',
     component: ManagerHouseComponent
   }
 ]
