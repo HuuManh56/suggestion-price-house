@@ -1,3 +1,7 @@
+import csv
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 
 from config import client
 from src.controller import app
@@ -48,7 +52,7 @@ def get_all_house():
     return jsonify(output);
 
 
-@app.route("/create-house", methods=['POST'])
+@app.route("/api/house/create-house", methods=['POST'])
 # them moi nha
 def create_house():
     try:
@@ -74,3 +78,41 @@ def create_house():
         # Add message for debugging purpose
         return "", 500
 
+# gợi ý giá nhà
+@app.route("/suggestion", methods=['POST'])
+def suggestion():
+    try:
+        body = ast.literal_eval(json.dumps(request.get_json()))
+        print(body['area'])
+    except:
+        return  "", 400
+     # thuc hien suggestion
+            # read data
+    data = []
+
+    with open('MOCK_DATA.csv') as f:
+        for line in f:
+            inner_list = [elt.strip() for elt in line.split(',')]
+            # in alternative, if you need to use the file content as numbers
+            # inner_list = [int(elt.strip()) for elt in line.split(',')]
+            data.append(inner_list)
+    print(data)
+    data = np.delete(data, 0, axis=0)  # remove row first
+    data = data.astype(np.float)
+    print('dataset: {}'.format(data))
+
+    features = data[:, :7]
+    targets = data[:, 7]
+    x_train, x_test, y_train, y_test = train_test_split(features, targets, test_size=0.3, random_state=42)
+    #
+    # traning
+    reg_rm = LinearRegression()
+    reg_rm.fit(x_train, y_train)
+
+    # evaluation model
+    print('score: {}'.format(reg_rm.score(x_test, y_test)))
+
+    # predict
+    predict = reg_rm.predict([[body['area'],3,2,42.02,8.74,3.79,6535.89]])
+    print('predict: {}'.format(int(predict)))
+    return jsonify(), 201
