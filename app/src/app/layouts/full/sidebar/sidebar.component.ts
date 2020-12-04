@@ -77,6 +77,13 @@ export class AppSidebarComponent extends BaseComponent implements OnInit, OnDest
         routerLink: ["/house"]
       },
       {
+        label: "Gợi ý giá nhà đất",
+        icon: "pi pi-user",
+        routerLink: ["/house/suggestion"]
+      },
+
+
+      {
         label: "Quản lý người dùng",
         icon: "pi pi-user",
         routerLink: ["/user"]

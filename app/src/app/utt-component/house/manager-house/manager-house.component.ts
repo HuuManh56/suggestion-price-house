@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Validators, FormGroup } from '@angular/forms';
 import { RESOURCE, ACTION_FORM } from '../../../core/app-config';
 import { HouseService } from '../../../core/services/house.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
@@ -10,18 +11,24 @@ import { BaseComponent } from '../../../shared/components/base-component/base-co
   templateUrl: './manager-house.component.html',
   styleUrls: ['./manager-house.component.css']
 })
-export class ManagerHouseComponent extends BaseComponent implements OnInit  {
+export class ManagerHouseComponent extends BaseComponent implements OnInit {
 
   formconfig = {
-
+    numberBedroom: [''],
+    numberBathroom: [''],
+    totalFloor: [''],
+    area: [''],
+    frontWidth: [''],
+    inletWidth: [''],
+    distanceCenter: [''],
   };
-  
+
   constructor(
     public actr: ActivatedRoute,
     public router: Router,
-    public houseService : HouseService,
+    public houseService: HouseService,
   ) {
-    super(actr,RESOURCE.HOUSE, ACTION_FORM.SEARCH);
+    super(actr, RESOURCE.HOUSE, ACTION_FORM.SEARCH);
     this.setMainService(houseService);
     this.formSearch = this.buildForm({}, this.formconfig);
   };
@@ -29,8 +36,8 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit  {
   ngOnInit() {
     this.processSearch();
   }
-  
-  public get f () {
+
+  public get f() {
     return this.formSearch.controls;
   }
 

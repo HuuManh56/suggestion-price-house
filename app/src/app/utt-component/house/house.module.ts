@@ -5,8 +5,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HouseRoutingModule } from './house-routing.module';
 import { ManageHouseFormComponent } from './manage-house-form/manage-house-form.component';
+import { SuggestionHouseComponent } from './suggestion-house/suggestion-house.component';
 @NgModule({
-  declarations: [ManagerHouseComponent, ManageHouseFormComponent],
+  declarations: [ManagerHouseComponent, ManageHouseFormComponent, SuggestionHouseComponent],
   imports: [
     SharedModule,
     HttpClientModule,

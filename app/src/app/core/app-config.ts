@@ -20,7 +20,8 @@ export const CONFIG: any = {
     statistical: "/statistical",
     statisticalPerson :"/statistical-person",
     report: "/report",
-    house:"/house"
+    house:"/house",
+    suggestion:"/house/suggestion"
   }
 };
 
