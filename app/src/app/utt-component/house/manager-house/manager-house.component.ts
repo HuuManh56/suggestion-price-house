@@ -4,7 +4,7 @@ import { Validators, FormGroup } from '@angular/forms';
 import { RESOURCE, ACTION_FORM } from '../../../core/app-config';
 import { HouseService } from '../../../core/services/house.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
-
+import { CommonUtils } from '../../../shared/service/common-utils.service';
 
 @Component({
   selector: 'app-manager-house',
@@ -37,6 +37,21 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit {
     this.processSearch();
   }
 
+  public processSearch(event?): void {
+    if (!CommonUtils.isValidForm(this.formSearch)) {
+      return;
+    }
+    const params = this.formSearch ? this.formSearch.value : null;
+    this.houseService.searchData(params, event).subscribe(res => {
+      this.resultList = res;
+    });
+
+    if (!event) {
+      if (this.dataTable) {
+        this.dataTable.first = 0;
+      }
+    }
+  }
   public get f() {
     return this.formSearch.controls;
   }
