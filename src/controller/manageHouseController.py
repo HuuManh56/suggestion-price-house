@@ -42,10 +42,21 @@ def get_initial_response():
 def get_all_house():
     args = request.args
     formSearch = {}
-    # if (args.get('name') is not None):
-    #     formSearch['name'] = args['name'];
-    # if (args.get('age') is not None):
-    #     formSearch['age'] = int(args['age']);
+    if (args.get('numberBedroom') is not None):
+         formSearch['numberBedroom'] = int(args['numberBedroom']);
+    if (args.get('numberBathroom') is not None):
+         formSearch['numberBathroom'] = int(args['numberBathroom']);
+    if (args.get('totalFloor') is not None):
+         formSearch['totalFloor'] = int(args['totalFloor']);
+    if (args.get('area') is not None):
+         formSearch['area'] = int(args['area']);
+    if (args.get('frontWidth') is not None):
+         formSearch['frontWidth'] = int(args['frontWidth']);
+    if (args.get('inletWidth') is not None):
+         formSearch['inletWidth'] = int(args['inletWidth']);
+    if (args.get('distanceCenter') is not None):
+         formSearch['distanceCenter'] = int(args['distanceCenter']);
+
     output = [];
     for p in collection.find(formSearch):
         output.append({"priceHouse": str(p["_id"]), "area": p['area'], "numberBedroom": p["numberBedroom"]});
