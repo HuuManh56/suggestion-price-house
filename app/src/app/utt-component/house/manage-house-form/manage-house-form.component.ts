@@ -47,7 +47,7 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
     return this.formSave.controls;
   }
 
-  public setFormValue(data?: any) {
+  public setFormValue(propertyConfigs: any, data?: any) {
     if(data) {
       const id = data.houseId;
       this.id = id;

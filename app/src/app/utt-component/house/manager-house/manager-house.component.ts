@@ -60,9 +60,9 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit {
     });
   }
   
-  public prepareSaveOrUpdate(data?) {
+  public prepareSaveOrUpdate(item) {
     const modalRef = this.modalService.open(ManageHouseFormComponent, DEFAULT_MODAL_OPTIONS);
-    modalRef.componentInstance.setFormValue(this.propertyConfigs, data);
+    modalRef.componentInstance.setFormValue(this.propertyConfigs, item);
     modalRef.result.then(result => {
       this.processSearch();
     });
