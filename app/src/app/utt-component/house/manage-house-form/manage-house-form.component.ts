@@ -22,14 +22,10 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
     numberBathroom: ['',[Validators.max(10),Validators.min(1)]],
     totalFloor:     ['',[Validators.max(8),Validators.min(1)]],
     area:           ['',[Validators.max(500),Validators.min(20)]],
-    frontWidthFrom:     ['',[Validators.max(20),Validators.min(3)]],
-    frontWidthTo:     ['',[Validators.max(20),Validators.min(3)]],
-    inletWidthFrom:     ['',[Validators.max(10),Validators.min(1)]],
-    inletWidthTo:     ['',[Validators.max(10),Validators.min(1)]],
-    distanceCenterFrom: ['',[Validators.max(30000),Validators.min(10)]],
-    distanceCenterTo: ['',[Validators.max(30000),Validators.min(10)]],
-    priceFrom: ['',[Validators.max(50000000000),Validators.min(100000000)]],
-    priceTo: ['',[Validators.max(50000000000),Validators.min(100000000)]],
+    frontWidth:     ['',[Validators.max(20),Validators.min(3)]],
+    inletWidth:     ['',[Validators.max(10),Validators.min(1)]],
+    distanceCenter: ['',[Validators.max(30000),Validators.min(10)]],
+    price: ['',[Validators.max(50000000000),Validators.min(100000000)]],
   };
 
   constructor(   
