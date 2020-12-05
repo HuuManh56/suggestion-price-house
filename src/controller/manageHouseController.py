@@ -213,7 +213,7 @@ def delete_house(id):
 
 
 # api get one
-@app.route("/api/house/get-one-house/<id>", methods=['GET'])
+@app.route("/api/house/<id>", methods=['GET'])
 def findOneHouse(id):
     try:
         collection = db.house
