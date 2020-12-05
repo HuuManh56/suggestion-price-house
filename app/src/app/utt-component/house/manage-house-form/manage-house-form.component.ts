@@ -18,18 +18,14 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
   id: any = null;
 
   formConfig = {
-    numberBedroom:  ['',[Validators.max(10),Validators.min(1)]],
-    numberBathroom: ['',[Validators.max(10),Validators.min(1)]],
-    totalFloor:     ['',[Validators.max(8),Validators.min(1)]],
-    area:           ['',[Validators.max(500),Validators.min(20)]],
-    frontWidthFrom:     ['',[Validators.max(20),Validators.min(3)]],
-    frontWidthTo:     ['',[Validators.max(20),Validators.min(3)]],
-    inletWidthFrom:     ['',[Validators.max(10),Validators.min(1)]],
-    inletWidthTo:     ['',[Validators.max(10),Validators.min(1)]],
-    distanceCenterFrom: ['',[Validators.max(30000),Validators.min(10)]],
-    distanceCenterTo: ['',[Validators.max(30000),Validators.min(10)]],
-    priceFrom: ['',[Validators.max(50000000000),Validators.min(100000000)]],
-    priceTo: ['',[Validators.max(50000000000),Validators.min(100000000)]],
+    numberBedroom:  ['',[Validators.required,Validators.max(10),Validators.min(1)]],
+    numberBathroom: ['',[Validators.required,Validators.max(10),Validators.min(1)]],
+    totalFloor:     ['',[Validators.required,Validators.max(8),Validators.min(1)]],
+    area:           ['',[Validators.required,Validators.max(500),Validators.min(20)]],
+    frontWidth:     ['',[Validators.required,Validators.max(20),Validators.min(3)]],
+    inletWidth:     ['',[Validators.required,Validators.max(10),Validators.min(1)]],
+    distanceCenter: ['',[Validators.required,Validators.max(30000),Validators.min(10)]],
+    price: ['',[Validators.max(50000000000),Validators.min(100000000)]]
   };
 
   constructor(   
@@ -51,8 +47,9 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
     return this.formSave.controls;
   }
 
-  public setFormValue(data?: any) {
-    if(data) {
+  public setFormValue(propertyConfigs: any, data?: any) {
+    this.propertyConfigs = propertyConfigs;
+    if(data.id  > 0) {
       const id = data.houseId;
       this.id = id;
       this.houseService.findOneData(id)

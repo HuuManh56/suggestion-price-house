@@ -47,7 +47,6 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit {
 
   public processDelete(item){
     const id = item.houseId;
-    debugger
     this.houseService.confirmDelete({
       messageCode: null,
       accept: () => {
@@ -60,12 +59,15 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit {
     });
   }
   
-  public prepareSaveOrUpdate(data?) {
-    const modalRef = this.modalService.open(ManageHouseFormComponent, DEFAULT_MODAL_OPTIONS);
-    modalRef.componentInstance.setFormValue(this.propertyConfigs, data);
-    modalRef.result.then(result => {
-      this.processSearch();
-    });
+  prepareSaveOrUpdate(item?): void {
+    if (item && item.houseId) {
+      this.houseService.findOne(item.houseId)
+        .subscribe(res => {
+          this.activeFormModal(this.modalService, ManageHouseFormComponent, res.data);
+        });
+    } else {
+      this.activeFormModal(this.modalService, ManageHouseFormComponent, null);
+    }
   }
   // public processSearch(event?): void {
   //   if (!CommonUtils.isValidForm(this.formSearch)) {
