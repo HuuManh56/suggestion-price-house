@@ -12,6 +12,7 @@ from flask import request, jsonify
 import json
 import ast
 from importlib.machinery import SourceFileLoader
+import matplotlib.pyplot as plt
 
 # Import the helpers module
 helper_module = SourceFileLoader('*', './src/controller/helpers.py').load_module()
@@ -166,7 +167,7 @@ def suggestion():
                                float(args['area']),float(args['frontWidth']),float(args['inletWidth']),float(args['distanceCenter'])]])
     print('predict: {}'.format(int(predict)))
 
-    query_params = helper_module.parse_query_params(request.query_string)
+
     formSearch = {}
     # formSearch['numberBedroom'] = int(args['numberBedroom']);
     # formSearch['numberBathroom'] = int(args['numberBathroom']);
