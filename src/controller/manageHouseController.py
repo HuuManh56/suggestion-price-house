@@ -42,19 +42,62 @@ def get_initial_response():
 def get_all_house():
     args = request.args
     print(args)
+    query_params = helper_module.parse_query_params(request.query_string)
     formSearch = {}
-    if (args.get('numberBedroom') is not None):
-        formSearch['numberBedroom'] = args['numberBedroom'];
-    if (args.get('age') is not None):
-        formSearch['age'] = int(args['age']);
-
-
-
-
+    # số phòng ngủ
+    if (args.get('numberBedroom') != "" ):
+        formSearch['numberBedroom'] = int(args['numberBedroom']);
+    # Số phòng tắm
+    if (args.get('numberBathroom') != "" ):
+        formSearch['numberBathroom'] = int(args['numberBathroom']);
+    # Số tầng
+    if (args.get('totalFloor') != "" ):
+        formSearch['totalFloor'] = int(args['totalFloor']);
+    # diện tích
+    if (args.get('area') != "" ):
+        formSearch['area'] = float(args['area']);
+    # độ rộng mặt trước
+    if (args.get('frontWidthFrom') != "" ):
+        formSearch['frontWidth'] = {"$gt": float(args['frontWidthFrom']) };
+    if (args.get('frontWidthTo') != ""):
+        formSearch['frontWidth'] =  {"$lt": float(args['frontWidthTo']) };
+    # độ rộng đường vào
+    if (args.get('inletWidthFrom') != ""):
+        formSearch['inletWidth'] = {"$gt": float(args['inletWidthFrom']) };
+    if (args.get('inletWidthTo') != ""):
+        formSearch['inletWidth'] = {"$lt": float(args['inletWidthTo']) };
+    # khoảng cách so với trung tâm
+    if (args.get('distanceCenterFrom') != ""):
+        formSearch['distanceCenter'] = {"$gt": float(args['distanceCenterFrom']) };
+    if (args.get('distanceCenterTo') != ""):
+        formSearch['distanceCenter'] = {"$lt": float(args['distanceCenterTo']) };
+    # giá nhà
+    if (args.get('priceFrom') != ""):
+        formSearch['price'] = {"$gt": float(args['priceFrom']) };
+    if (args.get('priceTo') != ""):
+        formSearch['price'] = {"$lt": float(args['priceTo']) };
+    print(formSearch)
     output = [];
-    for p in collection.find(formSearch):
-        output.append({"priceHouse": str(p["_id"]), "area": p['area'], "numberBedroom": p["numberBedroom"]});
-    return jsonify(output);
+    recordsTotal = collection.find(formSearch).count();
+    first = 0
+    if b'_search' in query_params:
+        _search = json.loads(query_params[b'_search'].decode('utf-8'))
+        a = _search['first']
+        first = int(_search['first'])
+
+    for p in collection.find(formSearch).skip(first).sort({"_id": -1}).limit(10):
+        output.append({ "houseId": str(p["_id"])
+                        , "numberBedroom": p["numberBedroom"]
+                        , "numberBathroom": p['numberBathroom']
+                        , "totalFloor": p["totalFloor"]
+                        , "area": p["area"]
+                        , "frontWidth": p["frontWidth"]
+                        , "inletWidth": p["inletWidth"]
+                        , "distanceCenter": float(p["distanceCenter"])
+                        , "price": p["price"]
+                       });
+        print(output)
+    return jsonify({"data":output, "recordsTotal":recordsTotal, "first" : first });
 
 
 @app.route("/create-house", methods=['POST'])

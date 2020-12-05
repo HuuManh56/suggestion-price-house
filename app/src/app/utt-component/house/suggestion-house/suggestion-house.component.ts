@@ -15,11 +15,11 @@ export class SuggestionHouseComponent  extends BaseComponent implements OnInit {
 
  
   formconfig = {
-    numberBedroom:  ['',[Validators.required,Validators.max(10),Validators.min(2)]],
-    numberBathroom: ['',[Validators.required,Validators.max(10),Validators.min(2)]],
+    numberBedroom:  ['',[Validators.required,Validators.max(10),Validators.min(1)]],
+    numberBathroom: ['',[Validators.required,Validators.max(10),Validators.min(1)]],
     totalFloor:     ['',[Validators.required,Validators.max(8),Validators.min(2)]],
-    area:           ['',[Validators.required,Validators.max(1000),Validators.min(30)]],
-    frontWidth:     ['',[Validators.required,Validators.max(20),Validators.min(5)]],
+    area:           ['',[Validators.required,Validators.max(500),Validators.min(20)]],
+    frontWidth:     ['',[Validators.required,Validators.max(20),Validators.min(3)]],
     inletWidth:     ['',[Validators.required,Validators.max(10),Validators.min(1)]],
     distanceCenter: ['',[Validators.required,Validators.max(30000),Validators.min(10)]],
     price: ['']

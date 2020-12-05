@@ -14,13 +14,18 @@ import { CommonUtils } from '../../../shared/service/common-utils.service';
 export class ManagerHouseComponent extends BaseComponent implements OnInit {
 
   formconfig = {
-    numberBedroom: [''],
-    numberBathroom: [''],
-    totalFloor: [''],
-    area: [''],
-    frontWidth: [''],
-    inletWidth: [''],
-    distanceCenter: [''],
+    numberBedroom:  ['',[Validators.max(10),Validators.min(1)]],
+    numberBathroom: ['',[Validators.max(10),Validators.min(1)]],
+    totalFloor:     ['',[Validators.max(8),Validators.min(2)]],
+    area:           ['',[Validators.max(500),Validators.min(20)]],
+    frontWidthFrom:     ['',[Validators.max(20),Validators.min(3)]],
+    frontWidthTo:     ['',[Validators.max(20),Validators.min(3)]],
+    inletWidthFrom:     ['',[Validators.max(10),Validators.min(1)]],
+    inletWidthTo:     ['',[Validators.max(10),Validators.min(1)]],
+    distanceCenterFrom: ['',[Validators.max(30000),Validators.min(10)]],
+    distanceCenterTo: ['',[Validators.max(30000),Validators.min(10)]],
+    priceFrom: ['',[Validators.max(50000000000),Validators.min(100000000)]],
+    priceTo: ['',[Validators.max(50000000000),Validators.min(100000000)]],
   };
 
   constructor(
@@ -37,21 +42,22 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit {
     this.processSearch();
   }
 
-  public processSearch(event?): void {
-    if (!CommonUtils.isValidForm(this.formSearch)) {
-      return;
-    }
-    const params = this.formSearch ? this.formSearch.value : null;
-    this.houseService.searchData(params, event).subscribe(res => {
-      this.resultList = res;
-    });
 
-    if (!event) {
-      if (this.dataTable) {
-        this.dataTable.first = 0;
-      }
-    }
-  }
+  // public processSearch(event?): void {
+  //   if (!CommonUtils.isValidForm(this.formSearch)) {
+  //     return;
+  //   }
+  //   const params = this.formSearch ? this.formSearch.value : null;
+  //   this.houseService.searchData(params, event).subscribe(res => {
+  //     this.resultList = res;
+  //   });
+
+  //   if (!event) {
+  //     if (this.dataTable) {
+  //       this.dataTable.first = 0;
+  //     }
+  //   }
+  // }
   public get f() {
     return this.formSearch.controls;
   }
