@@ -101,7 +101,7 @@ def get_all_house():
     return jsonify({"data":output, "recordsTotal":recordsTotal, "first" : first });
 
 
-@app.route("/create-house", methods=['POST'])
+@app.route("/api/house/create-house", methods=['POST'])
 # them moi nha
 def create_house():
     try:
@@ -213,7 +213,7 @@ def delete_house(id):
 
 
 # api get one
-@app.route("/get-one-house/<id>", methods=['GET'])
+@app.route("/api/house/get-one-house/<id>", methods=['GET'])
 def findOneHouse(id):
     try:
         collection = db.house
@@ -223,7 +223,7 @@ def findOneHouse(id):
         return e, 500
 
 
-@app.route("/update-one-house/<id>", methods=['POST'])
+@app.route("/api/house/update-one-house/<id>", methods=['POST'])
 def updateMovie(id):
     collection = db.house
     try:

@@ -1,3 +1,100 @@
-<p>
-  manage-house-form works!
-</p>
+<div class="panel panel-default">
+  <form id="formInsert" [formGroup]="formSave">
+      <div class="panel-heading">
+          <strong class="text-u-c">
+              <i class="fa fa-th"></i>
+              <span>Thông tin nhà lưu lại </span>
+          </strong>
+          <div class="vt-absolute vt-shotcut-button-in-heading">
+            <span style="display: inline-block;" (click)="activeModal.close()" title="{{'Đóng'}}" class="btn btn-span btn-sm btn-info"><i class="fa fa-times" style="left: 0px !important;"></i></span>
+          </div>
+      </div>
+      <div class="panel-body padding-xl ui-g">
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số phòng ngủ</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input type='number' class="form-control ng-pristine ng-invalid ng-touched" formControlName="numberBedroom" autofocus>
+              <app-control-messages [control]="f['numberBedroom']"></app-control-messages>
+            </div>
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Số phòng tắm</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="numberBathroom">
+              <app-control-messages [control]="f['numberBathroom']"></app-control-messages>
+            </div>
+          </div>
+          
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số tầng</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="totalFloor">
+              <app-control-messages [control]="f['totalFloor']"></app-control-messages>
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tổng diện tích</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="area">
+              <app-control-messages [control]="f['area']"></app-control-messages>
+            </div>
+          </div>
+
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Độ rộng mặt tiền Từ </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" style="padding: 0px;">
+              <div class="ui-g-5">
+                <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="frontWidthFrom">
+                <app-control-messages [control]="f['frontWidthFrom']"></app-control-messages>
+              </div>
+              <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Đến</label>
+              <div class="ui-g-5">
+                <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="frontWidthTo">
+                <app-control-messages [control]="f['frontWidthTo']"></app-control-messages>
+              </div>
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Độ rộng mặt đường vào Từ</label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3" style="padding: 0px;">
+              <div class="ui-g-5">
+                <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="inletWidthFrom">
+                <app-control-messages [control]="f['inletWidthFrom']"></app-control-messages>
+              </div>
+              <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Đến</label>
+              <div class="ui-g-5">
+                <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="inletWidthTo">
+                <app-control-messages [control]="f['inletWidthTo']"></app-control-messages>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right" style="padding-top :5px">Khoảng cách tới trung tâm : Từ </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="distanceCenterFrom">
+              <app-control-messages [control]="f['distanceCenterFrom']"></app-control-messages>
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Khoảng cách tới trung tâm : Đến </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="distanceCenterTo">
+              <app-control-messages [control]="f['distanceCenterTo']"></app-control-messages>
+            </div>
+          </div>
+
+          <div class="ui-g-12">
+            <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right" style="padding-top :5px">Giá nhà: Từ </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="priceFrom">
+              <app-control-messages [control]="f['priceFrom']"></app-control-messages>
+            </div>
+
+            <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Giá nhà: Đến </label>
+            <div class="ui-g-12 ui-md-6 ui-lg-3">
+              <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="priceTo">
+              <app-control-messages [control]="f['priceTo']"></app-control-messages>
+            </div>
+          </div>
+
+      </div>
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSaveOrUpdate();" class="btn btn-sm btn-info" ><i class="fa fa-save"></i> Tìm kiếm</button>
+      </div>
+  </form>
+</div>

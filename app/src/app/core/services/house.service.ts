@@ -5,6 +5,7 @@ import { CommonUtils } from '../../shared/service/common-utils.service';
 import { HelperService } from '../../shared/service/helper.service';
 import { BasicService } from './basic.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,5 +30,15 @@ export class HouseService extends BasicService {
     const buildParams = CommonUtils.buildParams(data);
     return this.getRequest(url, { params: buildParams });
 
+  }
+
+  public findOneData(id: any): Observable<any> {
+    const url = `${this.serviceUrl}/get-one-house/${id}`;
+    return this.getRequest(url);
+  }
+
+  public saveOrUpdateData(item: any, id?): Observable<any> {
+    const url = id ? `${this.serviceUrl}/update-one-house/${id}` : `${this.serviceUrl}/create-house`;
+    return this.postRequest(url, CommonUtils.convertData(item));
   }
 }
