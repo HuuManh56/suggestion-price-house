@@ -12,29 +12,13 @@
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số phòng ngủ <font size="2" color="red">*</font></label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input  type='number' class="form-control ng-pristine ng-invalid ng-touched" formControlName="numberBedroom" autofocus>
-                <!-- <app-control-messages [control]="f['numberBedroom']"></app-control-messages> -->
-                <!-- <div *ngIf="f['numberBedroom'].hasError('required')">
-                  <font size="2" color="red">Bắt buộc nhập</font>
-                </div>  -->
-                <div *ngIf="f['numberBedroom'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 10</font>
-                </div> 
-                <div *ngIf="f['numberBedroom'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 1</font>
-                </div> 
+                <app-control-messages [control]="f['numberBedroom']"></app-control-messages>
               </div>
               <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Số phòng tắm <font size="2" color="red">*</font> </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type = "number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="numberBathroom">
-                <!-- <div *ngIf="f['numberBathroom'].hasError('required')">
-                  <font size="2" color="red">Bắt buộc nhập</font>
-                </div>  -->
-                <div *ngIf="f['numberBathroom'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 10</font>
-                </div> 
-                <div *ngIf="f['numberBathroom'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 1</font>
-                </div> 
+                <app-control-messages [control]="f['numberBathroom']"></app-control-messages>
+      
               </div>
             </div>
             
@@ -42,29 +26,13 @@
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số tầng <font size="2" color="red">*</font> </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type = "number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="totalFloor">
-                <!-- <div *ngIf="f['totalFloor'].hasError('required')">
-                  <font size="2" color="red">Bắt buộc nhập</font>
-                </div>  -->
-                <div *ngIf="f['totalFloor'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 8</font>
-                </div> 
-                <div *ngIf="f['totalFloor'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 2</font>
-                </div> 
+                <app-control-messages [control]="f['totalFloor']"></app-control-messages>
               </div>
 
               <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tổng diện tích <font size="2" color="red">*</font> </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type = "number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="area">
-                <!-- <div *ngIf="f['area'].hasError('required')">
-                  <font size="2" color="red">Bắt buộc nhập</font>
-                </div>  -->
-                <div *ngIf="f['area'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 500</font>
-                </div> 
-                <div *ngIf="f['area'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 20</font>
-                </div> 
+                <app-control-messages [control]="f['area']"></app-control-messages>
               </div>
             </div>
 
@@ -72,44 +40,20 @@
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Độ rộng mặt tiền <font size="2" color="red">*</font> </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type = "number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="frontWidth">
-                <!-- <div *ngIf="f['frontWidth'].hasError('required')">
-                  <font size="2" color="red">Bắt buộc nhập</font>
-                </div>  -->
-                <div *ngIf="f['frontWidth'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 20</font>
-                </div> 
-                <div *ngIf="f['frontWidth'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 3</font>
-                </div> 
+                <app-control-messages [control]="f['frontWidth']"></app-control-messages>
               </div>
 
               <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Độ rộng mặt đường vào <font size="2" color="red">*</font></label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type = "number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="inletWidth">
-                <!-- <div *ngIf="f['inletWidth'].hasError('required')">
-                  <font size="2" color="red">Bắt buộc nhập</font>
-                </div>  -->
-                <div *ngIf="f['inletWidth'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 10</font>
-                </div> 
-                <div *ngIf="f['inletWidth'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 1</font>
-                </div>
+                <app-control-messages [control]="f['inletWidth']"></app-control-messages>
               </div>
             </div>
             <div class="ui-g-12">
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Khoảng cách so với trung tâm <font size="2" color="red">*</font> </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type = "number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="distanceCenter">
-                <!-- <div *ngIf="f['distanceCenter'].hasError('required')">
-                  <font size="2" color="red">Bắt buộc nhập</font>
-                </div>  -->
-                <div *ngIf="f['distanceCenter'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 30000</font>
-                </div> 
-                <div *ngIf="f['distanceCenter'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 10</font>
-                </div>
+                <app-control-messages [control]="f['distanceCenter']"></app-control-messages>
               </div>
             </div>
             <div class="ui-g-12" *ngIf="f['price'].value > 0" style="text-align: center;" >
@@ -119,21 +63,21 @@
 
         </div>
         <div class="panel-footer vt-area-button">
-          <button type="submit" (click)="processSuggestion();" class="btn btn-sm btn-info" ><i class="fa fa-search"></i> Tìm kiếm</button>
+          <button type="submit" (click)="processSuggestion();" class="btn btn-sm btn-info" ><i class="fa fa-lightbulb-o"></i> Gợi ý</button>
         </div>
     </form>
   </div>
   
   
-  <div class="panel panel-default">
+  <div class="panel panel-default" *ngIf="resultList.data && resultList.data.length > 0">
     <div class="panel-heading vt-relative">
       <strong class="text-u-c">
         <i class="fa fa-th"></i>
         <span> Danh sách nhà có thể bạn quan tâm</span>
       </strong>
     </div>
-    <div class="panel-body panel-table">
-      <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length" (onLazyLoad)="processSearch($event)"
+    <div class="panel-body panel-table" >
+      <p-table #ptable [value]="resultList.data"  [paginator]="false" (onLazyLoad)="processSearch($event)"
         [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal" [responsive]="true" [lazyLoadOnInit]="false"
         tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" >
         <ng-template pTemplate="colgroup" let-columns>
@@ -182,9 +126,9 @@
             </td>
           </tr>
         </ng-template>
-        <ng-template pTemplate="paginatorleft">
+        <!-- <ng-template pTemplate="paginatorleft">
           <table-footer [resultList]="resultList"></table-footer>
-        </ng-template>
+        </ng-template> -->
       </p-table>
     </div>
     </div>

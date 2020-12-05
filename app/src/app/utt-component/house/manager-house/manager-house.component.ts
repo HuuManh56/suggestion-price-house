@@ -16,7 +16,7 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit {
   formconfig = {
     numberBedroom:  ['',[Validators.max(10),Validators.min(1)]],
     numberBathroom: ['',[Validators.max(10),Validators.min(1)]],
-    totalFloor:     ['',[Validators.max(8),Validators.min(2)]],
+    totalFloor:     ['',[Validators.max(8),Validators.min(1)]],
     area:           ['',[Validators.max(500),Validators.min(20)]],
     frontWidthFrom:     ['',[Validators.max(20),Validators.min(3)]],
     frontWidthTo:     ['',[Validators.max(20),Validators.min(3)]],

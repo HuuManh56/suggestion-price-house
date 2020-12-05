@@ -12,26 +12,12 @@
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số phòng ngủ</label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type='number' class="form-control ng-pristine ng-invalid ng-touched" formControlName="numberBedroom" autofocus>
-                <!-- <app-control-messages [control]="f['numberBedroom']"></app-control-messages> -->
-                <div *ngIf="f['numberBedroom'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 10</font>
-                </div> 
-                <div *ngIf="f['numberBedroom'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 1</font>
-                </div> 
-
+                <app-control-messages [control]="f['numberBedroom']"></app-control-messages>
               </div>
               <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Số phòng tắm</label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="numberBathroom">
-                <!-- <app-control-messages [control]="f['numberBathroom']"></app-control-messages> -->
-                <div *ngIf="f['numberBathroom'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 10</font>
-                </div> 
-                <div *ngIf="f['numberBathroom'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 1</font>
-                </div> 
-
+                <app-control-messages [control]="f['numberBathroom']"></app-control-messages>
               </div>
             </div>
             
@@ -39,25 +25,13 @@
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số tầng</label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="totalFloor">
-                <!-- <app-control-messages [control]="f['totalFloor']"></app-control-messages> -->
-                <div *ngIf="f['totalFloor'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 8</font>
-                </div> 
-                <div *ngIf="f['totalFloor'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 2</font>
-                </div> 
+                <app-control-messages [control]="f['totalFloor']"></app-control-messages>
               </div>
 
               <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tổng diện tích</label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="area">
-                <!-- <app-control-messages [control]="f['area']"></app-control-messages> -->
-                <div *ngIf="f['area'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 500</font>
-                </div> 
-                <div *ngIf="f['area'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 20</font>
-                </div> 
+                <app-control-messages [control]="f['area']"></app-control-messages>
               </div>
             </div>
 
@@ -66,24 +40,12 @@
               <div class="ui-g-12 ui-md-6 ui-lg-3" style="padding: 0px;">
                 <div class="ui-g-5">
                   <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="frontWidthFrom">
-
-                  <div *ngIf="f['frontWidthFrom'].hasError('max')">
-                    <font size="2" color="red">Giá trị lớn nhất là 20</font>
-                  </div> 
-                  <div *ngIf="f['frontWidthFrom'].hasError('min')">
-                    <font size="2" color="red">Giá trị nhỏ nhất là 3</font>
-                  </div>
-
+                  <app-control-messages [control]="f['frontWidthFrom']"></app-control-messages>
                 </div>
                 <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Đến</label>
                 <div class="ui-g-5">
                   <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="frontWidthTo">
-                  <div *ngIf="f['frontWidthTo'].hasError('max')">
-                    <font size="2" color="red">Giá trị lớn nhất là 20</font>
-                  </div> 
-                  <div *ngIf="f['frontWidthTo'].hasError('min')">
-                    <font size="2" color="red">Giá trị nhỏ nhất là 3</font>
-                  </div>
+                  <app-control-messages [control]="f['frontWidthTo']"></app-control-messages>
                 </div>
               </div>
 
@@ -91,24 +53,12 @@
               <div class="ui-g-12 ui-md-6 ui-lg-3" style="padding: 0px;">
                 <div class="ui-g-5">
                   <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="inletWidthFrom">
-
-                  <div *ngIf="f['inletWidthFrom'].hasError('max')">
-                    <font size="2" color="red">Giá trị lớn nhất là 10</font>
-                  </div> 
-                  <div *ngIf="f['inletWidthFrom'].hasError('min')">
-                    <font size="2" color="red">Giá trị nhỏ nhất là 1 </font>
-                  </div>
-
+                  <app-control-messages [control]="f['inletWidthFrom']"></app-control-messages>
                 </div>
                 <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Đến</label>
                 <div class="ui-g-5">
                   <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="inletWidthTo">
-                  <div *ngIf="f['inletWidthTo'].hasError('max')">
-                    <font size="2" color="red">Giá trị lớn nhất là 10</font>
-                  </div> 
-                  <div *ngIf="f['inletWidthTo'].hasError('min')">
-                    <font size="2" color="red">Giá trị nhỏ nhất là 1</font>
-                  </div>
+                  <app-control-messages [control]="f['inletWidthTo']"></app-control-messages>
                 </div>
               </div>
             </div>
@@ -116,26 +66,13 @@
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right" style="padding-top :5px">Khoảng cách tới trung tâm : Từ </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="distanceCenterFrom">
-                <!-- <app-control-messages [control]="f['distanceCenterFrom']"></app-control-messages> -->
-                <div *ngIf="f['distanceCenterFrom'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 30000</font>
-                </div> 
-                <div *ngIf="f['distanceCenterFrom'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 10</font>
-                </div>
-
+                <app-control-messages [control]="f['distanceCenterFrom']"></app-control-messages>
               </div>
 
               <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Khoảng cách tới trung tâm : Đến </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="distanceCenterTo">
-                <!-- <app-control-messages [control]="f['distanceCenterTo']"></app-control-messages> -->
-                <div *ngIf="f['distanceCenterTo'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 30000</font>
-                </div> 
-                <div *ngIf="f['distanceCenterTo'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 10</font>
-                </div>
+                <app-control-messages [control]="f['distanceCenterTo']"></app-control-messages>
               </div>
             </div>
 
@@ -143,26 +80,13 @@
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right" style="padding-top :5px">Giá nhà: Từ </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="priceFrom">
-                <!-- <app-control-messages [control]="f['priceFrom']"></app-control-messages> -->
-                <div *ngIf="f['priceFrom'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 50000000000</font>
-                </div> 
-                <div *ngIf="f['priceFrom'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 100000000</font>
-                </div>
+                <app-control-messages [control]="f['priceFrom']"></app-control-messages>
               </div>
 
               <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Giá nhà: Đến </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="priceTo">
-                <!-- <app-control-messages [control]="f['priceTo']"></app-control-messages> -->
-
-                <div *ngIf="f['priceTo'].hasError('max')">
-                  <font size="2" color="red">Giá trị lớn nhất là 50000000000</font>
-                </div> 
-                <div *ngIf="f['priceTo'].hasError('min')">
-                  <font size="2" color="red">Giá trị nhỏ nhất là 100000000</font>
-                </div>
+                <app-control-messages [control]="f['priceTo']"></app-control-messages>
               </div>
             </div>
 

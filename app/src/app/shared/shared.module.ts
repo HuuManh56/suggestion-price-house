@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { MenuItems } from './menu-items/menu-items';
 import {SlideMenuModule} from 'primeng/slidemenu';
@@ -32,7 +32,9 @@ import {ChartModule} from 'primeng/chart';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { ImportErrorComponent } from './components/import-error/import-error.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
-
+import localeFr from '@angular/common/locales/vi';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -88,7 +90,11 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
   ],
   providers: [
     ConfirmationService,
-    MenuItems
+    MenuItems,
+    {
+      provide: LOCALE_ID,
+      useValue: 'vi-VN'
+     }
   ],
   exports: [
     FlexLayoutModule,

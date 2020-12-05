@@ -85,7 +85,7 @@ def get_all_house():
         a = _search['first']
         first = int(_search['first'])
 
-    for p in collection.find(formSearch).skip(first).limit(10):
+    for p in collection.find(formSearch).limit(10):
         output.append({ "houseId": str(p["_id"])
                         , "numberBedroom": p["numberBedroom"]
                         , "numberBathroom": p['numberBathroom']
@@ -139,7 +139,7 @@ def suggestion():
     # read data
     data = []
 
-    with open('MOCK_DATA.csv') as f:
+    with open('dataTest.csv') as f:
         for line in f:
             inner_list = [elt.strip() for elt in line.split(',')]
             # in alternative, if you need to use the file content as numbers
@@ -166,8 +166,19 @@ def suggestion():
                                float(args['area']),float(args['frontWidth']),float(args['inletWidth']),float(args['distanceCenter'])]])
     print('predict: {}'.format(int(predict)))
 
+    query_params = helper_module.parse_query_params(request.query_string)
+    formSearch = {}
+    # formSearch['numberBedroom'] = int(args['numberBedroom']);
+    # formSearch['numberBathroom'] = int(args['numberBathroom']);
+    # formSearch['totalFloor'] = int(args['totalFloor']);
+    # formSearch['area'] = float(args['area']);
+    # formSearch['frontWidth'] = float(args['frontWidth']);
+    # formSearch['inletWidth'] = float(args['inletWidth']);
+    # formSearch['distanceCenter'] = {"$gt": float(args['distanceCenter'] ) - 1000, "$lt" : float(args['distanceCenter'] ) + 1000   };
+    formSearch['price'] = {"$gt": float(predict) - 200000000, "$lt":  float(predict) + 200000000 };
+
     outputlst = [];
-    for p in collection.find({"price": {"$gt": 2220166230 , "$lt": 14220166250}}).limit(10):
+    for p in collection.find(formSearch).limit(20):
         outputlst.append({ "numberBedroom": p["numberBedroom"]
                         ,"numberBathroom": p['numberBathroom']
                         ,"totalFloor": p["totalFloor"]

@@ -17,12 +17,20 @@ export class SuggestionHouseComponent  extends BaseComponent implements OnInit {
   formconfig = {
     numberBedroom:  ['',[Validators.required,Validators.max(10),Validators.min(1)]],
     numberBathroom: ['',[Validators.required,Validators.max(10),Validators.min(1)]],
-    totalFloor:     ['',[Validators.required,Validators.max(8),Validators.min(2)]],
+    totalFloor:     ['',[Validators.required,Validators.max(8),Validators.min(1)]],
     area:           ['',[Validators.required,Validators.max(500),Validators.min(20)]],
     frontWidth:     ['',[Validators.required,Validators.max(20),Validators.min(3)]],
     inletWidth:     ['',[Validators.required,Validators.max(10),Validators.min(1)]],
     distanceCenter: ['',[Validators.required,Validators.max(30000),Validators.min(10)]],
-    price: ['']
+    price: [''],
+    priceFrom: [''],
+    priceTo: [''],
+    frontWidthFrom:[''],
+    frontWidthTo:[''],
+    inletWidthFrom:[''],
+    inletWidthTo:[''],
+    distanceCenterFrom: [''],
+    distanceCenterTo: [''],
   };
   
   constructor(
@@ -44,13 +52,15 @@ export class SuggestionHouseComponent  extends BaseComponent implements OnInit {
       return;
     }
     this.houseService.processSuggestion(this.formSearch.value).subscribe( res =>{
-      console.log('res',res)
-      this.resultList = res;
-      
+      console.log("res",res)
       this.formSearch.controls['price'].setValue(res.price);
+      this.resultList = res;
     });
     // this.formSearch.controls['price'].setValue(1000);
   }
+
+ 
+
 
   public get f () {
     return this.formSearch.controls;

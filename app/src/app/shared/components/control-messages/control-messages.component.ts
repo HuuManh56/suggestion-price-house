@@ -43,6 +43,15 @@ export class ControlMessagesComponent {
         messageText = messageText.replace(new RegExp('\\$\\{' + this.replaceKeys[i] + '\\}', 'g'), text);
       }
     }
+    if(messageText == "required" ){
+      messageText ="Bắt buộc nhập"
+    }
+    if(messageText == "min" ){
+      messageText = "Giá tri nhỏ nhất là " + errors.min;
+    }
+    if(messageText == "max" ){
+      messageText = "Giá tri lớn nhất là " + errors.max;
+    }
     return messageText;
   }
 }
