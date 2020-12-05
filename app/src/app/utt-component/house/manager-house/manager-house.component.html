@@ -104,6 +104,11 @@
         <i class="fa fa-th"></i>
         <span> Danh sách nhà </span>
       </strong>
+      <div class="vt-absolute vt-shotcut-button-in-heading">
+        <div>
+        <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Thêm mới</button>
+        </div>
+      </div>
     </div>
     <div class="panel-body panel-table">
       <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length" (onLazyLoad)="processSearch($event)"
@@ -146,7 +151,7 @@
               <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'"><i class="fa fa-edit"></i></a>
             </td>
             <td class="vt-align-center">
-              <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'"><i class="fa fa-trash-alt"></i></a>
+              <a class="btn-table delete" (click)="processDelete(item)" [title]="'Xóa'"><i class="fa fa-trash-alt"></i></a>
             </td>
             <td class="vt-align-right" >{{item.numberBedroom}} </td>
             <td class="vt-align-right"> {{item.numberBathroom}} </td>

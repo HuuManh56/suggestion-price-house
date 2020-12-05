@@ -9,6 +9,13 @@ import { BasicService } from './basic.service';
   providedIn: 'root'
 })
 export class HouseService extends BasicService {
+  
+  public deleteData(id: any): Observable<any> {
+    const url = `${this.serviceUrl}/delete-house/${id}`;
+    this.helperService.isProcessing(true);
+    return this.deleteRequest(url);
+
+  }
 
   constructor(public httpClient: HttpClient, public helperService: HelperService) {
     super('ess', 'house', httpClient, helperService);
