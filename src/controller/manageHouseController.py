@@ -180,9 +180,9 @@ def suggestion():
     return jsonify({"data":outputlst, "price": format(int(predict)) });
 # {{"price": format(int(predict))}, "data":outputlst}
 
-@app.route("/delete-house/<id>", methods=['DELETE'])
+@app.route("/api/house/delete-house/<id>", methods=['DELETE'])
 # xoa nha da ton tai
-def delete_house():
+def delete_house(id):
     collection = db.house
     try:
         # Get the value which needs to be updated
