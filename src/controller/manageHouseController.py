@@ -41,18 +41,23 @@ def get_initial_response():
 @app.route("/api/house/search", methods=['GET'])
 def get_all_house():
     args = request.args
+    print(args)
     formSearch = {}
-    # if (args.get('name') is not None):
-    #     formSearch['name'] = args['name'];
-    # if (args.get('age') is not None):
-    #     formSearch['age'] = int(args['age']);
+    if (args.get('numberBedroom') is not None):
+        formSearch['numberBedroom'] = args['numberBedroom'];
+    if (args.get('age') is not None):
+        formSearch['age'] = int(args['age']);
+
+
+
+
     output = [];
     for p in collection.find(formSearch):
         output.append({"priceHouse": str(p["_id"]), "area": p['area'], "numberBedroom": p["numberBedroom"]});
     return jsonify(output);
 
 
-@app.route("/api/house/create-house", methods=['POST'])
+@app.route("/create-house", methods=['POST'])
 # them moi nha
 def create_house():
     try:
@@ -80,11 +85,11 @@ def create_house():
 
 
 # gợi ý giá nhà
-@app.route("/suggestion", methods=['POST'])
+@app.route("/api/house/suggestion", methods=['GET'])
 def suggestion():
     try:
-        body = ast.literal_eval(json.dumps(request.get_json()))
-        print(body['area'])
+        args = request.args
+        print(args)
     except:
         return "", 400
     # thuc hien suggestion
@@ -114,10 +119,23 @@ def suggestion():
     print('score: {}'.format(reg_rm.score(x_test, y_test)))
 
     # predict
-    predict = reg_rm.predict([[body['area'], 3, 2, 42.02, 8.74, 3.79, 6535.89]])
+    predict = reg_rm.predict([[float(args['numberBedroom']),float(args['numberBathroom']),float(args['totalFloor']),
+                               float(args['area']),float(args['frontWidth']),float(args['inletWidth']),float(args['distanceCenter'])]])
     print('predict: {}'.format(int(predict)))
-    return jsonify(), 201
 
+    outputlst = [];
+    for p in collection.find({"price": {"$gt": 2220166230 , "$lt": 14220166250}}).limit(10):
+        outputlst.append({ "numberBedroom": p["numberBedroom"]
+                        ,"numberBathroom": p['numberBathroom']
+                        ,"totalFloor": p["totalFloor"]
+                        ,"area":p["area"]
+                        ,"frontWidth":p["frontWidth"]
+                        ,"inletWidth":p["inletWidth"]
+                        ,"distanceCenter": float(p["distanceCenter"])
+                        ,"price": p["price"]
+                       });
+    return jsonify({"data":outputlst, "price": format(int(predict)) });
+# {{"price": format(int(predict))}, "data":outputlst}
 
 @app.route("/delete-house/<id>", methods=['DELETE'])
 # xoa nha da ton tai

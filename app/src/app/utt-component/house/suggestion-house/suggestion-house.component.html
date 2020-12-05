@@ -4,10 +4,10 @@
         <div class="panel-heading">
             <strong class="text-u-c">
                 <i class="fa fa-th"></i>
-                <span>Thông tin </span>
+                <span> Thông tin </span>
             </strong>
         </div>
-        <div class="panel-body padding-xl ui-g">
+        <div class="panel-body padding-xl ui-g" style="padding-bottom: 0px;">
             <div class="ui-g-12">
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Số phòng ngủ <font size="2" color="red">*</font></label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
@@ -55,6 +55,11 @@
                 <app-control-messages [control]="f['distanceCenter']"></app-control-messages>
               </div>
             </div>
+            <div class="ui-g-12" *ngIf="f['price'].value > 0" style="text-align: center;" >
+              Với những thông tin trên, hệ thống dự đoán giá của ngôi nhà là : {{f['price'].value | currency :'VND':true }}
+            </div>
+
+
         </div>
         <div class="panel-footer vt-area-button">
           <button type="submit" (click)="processSuggestion();" class="btn btn-sm btn-info" ><i class="fa fa-search"></i> Tìm kiếm</button>
@@ -67,18 +72,17 @@
     <div class="panel-heading vt-relative">
       <strong class="text-u-c">
         <i class="fa fa-th"></i>
-        <span>Danh sách nhà có thể bạn quan tâm</span>
+        <span> Danh sách nhà có thể bạn quan tâm</span>
       </strong>
     </div>
-    <!-- <div class="panel-body panel-table">
+    <div class="panel-body panel-table">
       <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length" (onLazyLoad)="processSearch($event)"
         [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal" [responsive]="true" [lazyLoadOnInit]="false"
         tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" >
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
             <col class="size-1">
-            <col class="size-1">
-            <col class="size-1">
+            <col class="size-4">
             <col class="size-4">
             <col class="size-4">
             <col class="size-4">
@@ -91,35 +95,27 @@
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th >STT</th>
-            <th >Sửa</th>
-            <th >Xóa</th>
-            <th pSortableColumn="code" >Mã hóa đơn  <p-sortIcon [field]="'codeBill'"></p-sortIcon></th>
-            <th pSortableColumn="name" >Mã căn hộ <p-sortIcon [field]="'name'"></p-sortIcon></th>
-            <th >Chủ hộ </th>
-            <th >SĐT </th>
-            <th >Số tiền </th>
-            <th >Trạng thái </th>
-            <th >Loại hóa đơn </th>
+            <th >Số phòng ngủ</th>
+            <th >Số phòng tắm</th>
+            <th >Số tầng</th>
+            <th >Tổng diện tích</th>
+            <th >Độ rộng mặt tiền</th>
+            <th >Độ rộng đường vào </th>
+            <th >Khoảng cách so với trung tâm</th>
+            <th >Giá nhà</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-index="rowIndex">
           <tr>
             <td class="vt-align-center">{{index+1}}</td>
-            <td class="vt-align-center" >
-              <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'"><i class="fa fa-edit"></i></a>
-            </td>
-            <td class="vt-align-center">
-              <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'"><i class="fa fa-trash-alt"></i></a>
-            </td>
-            <td class="vt-align-center">{{item.codeBill}}</td>
-           
-            <td class="vt-align-center" >  {{item.codeApartment}} </td>
-            <td class="vt-align-left" >  {{item.personName}} </td>
-            <td class="vt-align-left" > {{item.numberPhone}} </td>
-            <td class="vt-align-right" >  {{item.totalPrice}} </td>
-            <td class="vt-align-center" >  {{item.status}} </td>
-            <td class="vt-align-center" *ngIf="item.type == 1" > Hóa đơn điện </td>
-            <td class="vt-align-center" *ngIf="item.type == 2" > Hóa đơn nước </td>
+            <td class="vt-align-center" >{{item.numberBedroom}} </td>
+            <td class="vt-align-center"> {{item.numberBathroom}} </td>
+            <td class="vt-align-center">{{item.totalFloor}}</td>
+            <td class="vt-align-center" >  {{item.area}} </td>
+            <td class="vt-align-left" >  {{item.frontWidth}} </td>
+            <td class="vt-align-left" > {{item.inletWidth}} </td>
+            <td class="vt-align-right" >  {{item.distanceCenter}} </td>
+            <td class="vt-align-right" >  {{item.price | currency :'VND':true }} </td>
           </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
@@ -133,6 +129,6 @@
           <table-footer [resultList]="resultList"></table-footer>
         </ng-template>
       </p-table>
-    </div> -->
+    </div>
     </div>
   </div>

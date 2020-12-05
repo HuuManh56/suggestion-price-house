@@ -21,7 +21,7 @@ export const CONFIG: any = {
     statisticalPerson :"/statistical-person",
     report: "/report",
     house:"/house",
-    suggestion:"/house/suggestion"
+    //suggestion:"/house/suggestion"
   }
 };
 

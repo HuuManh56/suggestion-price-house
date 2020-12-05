@@ -1,5 +1,8 @@
-import { NgModule } from "@angular/core";
+import { LOCALE_ID, NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/vi';
+registerLocaleData(localeFr);
 
 const routes: Routes = [
   {
@@ -36,6 +39,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'vi-VN'
+     }
+  ],
   exports: [RouterModule]
 })
 export class UttRoutingModule {}

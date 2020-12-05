@@ -186,7 +186,8 @@ export class BasicService {
     this.helperService.isProcessing(true);
     const headers = new HttpHeaders ({
       'Authorization': Storage.getUserToken().access_token,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     });
     return this.httpClient.post(url, data,{headers: headers}).pipe(
       tap(
@@ -209,7 +210,7 @@ export class BasicService {
   public deleteRequest(url: string): Observable<any> {
     const headers = new HttpHeaders ({
       'Authorization': Storage.getUserToken().access_token,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json','Access-Control-Allow-Origin': '*'
     });
     this.helperService.isProcessing(true);
     return this.httpClient.delete(url, {headers: headers}).pipe(

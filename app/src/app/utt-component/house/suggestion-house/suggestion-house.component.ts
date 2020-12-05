@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormGroup } from '@angular/forms';
 import { RESOURCE, ACTION_FORM } from '../../../core/app-config';
 import { HouseService } from '../../../core/services/house.service';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
+import { CommonUtils } from '../../../shared/service/common-utils.service';
 
 @Component({
   selector: 'app-suggestion-house',
@@ -20,7 +21,8 @@ export class SuggestionHouseComponent  extends BaseComponent implements OnInit {
     area:           ['',[Validators.required,Validators.max(1000),Validators.min(30)]],
     frontWidth:     ['',[Validators.required,Validators.max(20),Validators.min(5)]],
     inletWidth:     ['',[Validators.required,Validators.max(10),Validators.min(1)]],
-    distanceCenter: ['',[Validators.required,Validators.max(30000),Validators.min(10)]]
+    distanceCenter: ['',[Validators.required,Validators.max(30000),Validators.min(10)]],
+    price: ['']
   };
   
   constructor(
@@ -34,11 +36,20 @@ export class SuggestionHouseComponent  extends BaseComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.processSuggestion();
+    // this.processSuggestion();
   }
 
   public processSuggestion(){
-    
+    if (!CommonUtils.isValidForm(this.formSearch) ) {
+      return;
+    }
+    this.houseService.processSuggestion(this.formSearch.value).subscribe( res =>{
+      console.log('res',res)
+      this.resultList = res;
+      
+      this.formSearch.controls['price'].setValue(res.price);
+    });
+    // this.formSearch.controls['price'].setValue(1000);
   }
 
   public get f () {
