@@ -85,7 +85,7 @@ def get_all_house():
         a = _search['first']
         first = int(_search['first'])
 
-    for p in collection.find(formSearch).skip(first).sort({"_id": -1}).limit(10):
+    for p in collection.find(formSearch).skip(first).limit(10):
         output.append({ "houseId": str(p["_id"])
                         , "numberBedroom": p["numberBedroom"]
                         , "numberBathroom": p['numberBathroom']
