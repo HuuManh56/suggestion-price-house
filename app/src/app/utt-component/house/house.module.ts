@@ -13,6 +13,9 @@ import { SuggestionHouseComponent } from './suggestion-house/suggestion-house.co
     HttpClientModule,
     CommonModule,
     HouseRoutingModule
+  ],
+  entryComponents: [
+    ManageHouseFormComponent
   ]
 })
 export class HouseModule { }
