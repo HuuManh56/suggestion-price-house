@@ -59,7 +59,7 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit {
     });
   }
   
-  prepareSaveOrUpdate(item?): void {
+   prepareSaveOrUpdate(item?): void {
     if (item && item.houseId) {
       this.houseService.findOne(item.houseId)
         .subscribe(res => {

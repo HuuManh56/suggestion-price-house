@@ -37,28 +37,35 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.loginForm.invalid) {
-      return;
-    }
 
-    this.authService.actionRequestToken(this.loginForm.value).subscribe(
-      data => {
-        if (data) {
-          window.sessionStorage.setItem("token", data);
-          this.authService.getCurrentUserInfo().subscribe(res => {
-            const user = this.authService.extractTokenData(res);
+    const user = this.authService.extractTokenData(true);
             Storage.clear();
             Storage.setUserToken(user);
             this.router.navigate(["starter"]);
-          });
-        } else {
-          this.error = "Invalid username or password";
-        }
-      },
-      error => {
-        this.error = "Invalid username or password";
-      }
-    );
+
+
+    // if (this.loginForm.invalid) {
+    //   return;
+    // }
+
+    // this.authService.actionRequestToken(this.loginForm.value).subscribe(
+    //   data => {
+    //     if (data) {
+    //       window.sessionStorage.setItem("token", data);
+    //       this.authService.getCurrentUserInfo().subscribe(res => {
+    //         const user = this.authService.extractTokenData(res);
+    //         Storage.clear();
+    //         Storage.setUserToken(user);
+    //         this.router.navigate(["starter"]);
+    //       });
+    //     } else {
+    //       this.error = "Invalid username or password";
+    //     }
+    //   },
+    //   error => {
+    //     this.error = "Invalid username or password";
+    //   }
+    // );
   }
 
   private buildForm(): void {

@@ -104,15 +104,13 @@ def get_all_house():
 @app.route("/api/house/create-house", methods=['POST'])
 # them moi nha
 def create_house():
-    try:
-        # Create new users
+
         try:
             body = ast.literal_eval(json.dumps(request.get_json()))
         except:
             # Bad request as request body is not available
             # Add message for debugging purpose
             return "", 400
-
         record_created = collection.insert(body)
 
         # Prepare the response
@@ -122,10 +120,7 @@ def create_house():
         else:
             # Return Id of the newly created item
             return jsonify(str(record_created)), 201
-    except:
-        # Error while trying to create the resource
-        # Add message for debugging purpose
-        return "", 500
+
 
 
 # gợi ý giá nhà

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HouseService } from '../../../core/services/house.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BaseComponent } from '../../../shared/components/base-component/base-component.component';
 import { CommonUtils } from '../../../shared/service/common-utils.service';
 import { RESOURCE, DEFAULT_MODAL_OPTIONS, ACTION_FORM } from '../../../core/app-config';
 import * as _ from "lodash";
+import { AppComponent } from '../../../app.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-manage-house-form',
@@ -31,10 +32,11 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
   constructor(   
     public actr: ActivatedRoute,
     public router: Router,
+    private app: AppComponent,
     public houseService: HouseService,
-    public activeModal: NgbActiveModal,
-  ) { 
+ 	public activeModal: NgbActiveModal,  ) { 
     super(actr, RESOURCE.HOUSE, ACTION_FORM.UPDATE);
+    this.setMainService(houseService);
     this.formSave = this.buildForm({}, this.formConfig);
   }
 
@@ -48,15 +50,11 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
   }
 
   public setFormValue(propertyConfigs: any, data?: any) {
-    this.propertyConfigs = propertyConfigs;
-    if(data.id  > 0) {
-      const id = data.houseId;
-      this.id = id;
-      this.houseService.findOneData(id)
-        .subscribe(res => {
-          const data = res.data;
-          this.formSave = this.buildForm(data, this.formConfig);
-        });
+    if(data && data._id){
+      this.id = data._id;
+      this.formSave = this.buildForm(data, this.formConfig);
+    }else{
+      this.formSave = this.buildForm({}, this.formConfig);
     }
   }
 
@@ -64,13 +62,19 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
     if (!CommonUtils.isValidForm(this.formSave)) {
       return;
     }
-    console.log('processSaveOrUpdate: ', this.formSave.value)
-    const data =  _.cloneDeep(this.formSave.value);
-    this.houseService.saveOrUpdateData(data, this.id)
+    this.app.confirmMessage(null, () => {// on accepted
+      const data =  _.cloneDeep(this.formSave.value);
+      debugger
+      if(this.id){
+        this.id = this.id["$oid"]
+      }
+      this.houseService.saveOrUpdateData(data, this.id)
       .subscribe(res => {
-        if (this.houseService.requestIsSuccess(res)) {
-          this.activeModal.close(res);
-        }
+        this.activeModal.close(res);
+        this.processSearch();
       });
+    }, () => {
+      // on rejected
+    });
   }
 }

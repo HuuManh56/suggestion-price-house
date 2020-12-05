@@ -13,7 +13,7 @@
         <app-control-messages [control]="f['password']"></app-control-messages>
       </label>
       <div class="form-group">
-        <button type="submit" class="btn btn-sm btn-info btn-block " type="submit" [disabled]="loginForm.invalid">
+        <button type="submit" class="btn btn-sm btn-info btn-block " type="submit" >
           <span [hidden]="isLoading">Login</span>
           <span [hidden]="!isLoading"><i class="fas fa-asterisk fa-2x fa-spin"></i></span>
         </button>
