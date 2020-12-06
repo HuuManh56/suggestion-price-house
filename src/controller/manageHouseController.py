@@ -115,12 +115,10 @@ def create_house():
         record_created = collection.insert(body)
 
         # Prepare the response
-        if isinstance(record_created, list):
-            # Return list of Id of the newly created item
-            return jsonify([str(v) for v in record_created]), 201
-        else:
-            # Return Id of the newly created item
-            return jsonify(str(record_created)), 201
+        res = responseData('SUCCESS', 'SUCCESS', '', str(record_created))
+        print('res: {}'.format(res))
+        return dumps(res), 201
+
     except:
         # Error while trying to create the resource
         # Add message for debugging purpose
@@ -201,7 +199,7 @@ def delete_house(id):
         delete_house = collection.delete_one({"_id": ObjectId(id)})
         if delete_house.deleted_count > 0:
             res = responseData('SUCCESS', 'SUCCESS', '', "OK")
-            return dumps(res)
+            return dumps(res), 200
         else:
             # Resource Not found
             return "", 404
@@ -242,7 +240,7 @@ def updateMovie(id):
             # Prepare the response as resource is updated successfully
             record_created = collection.insert(body)
             res = responseData('SUCCESS', 'SUCCESS', '', record_created)
-            return dumps(res)
+            return dumps(res), 200
         else:
             # Bad request as the resource is not available to update
             # Add message for debugging purpose
