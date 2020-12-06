@@ -60,27 +60,19 @@ export class StarterComponent extends BaseComponent implements AfterViewInit, On
   public get f() {
     return this.formSearch.controls;
   }
-  public changeYearPerson(){
-    this.buildChartPerson();
-  }
-  public changeYearBill(){
-    // this.buildChartBill();
-  }
 
   public buildChartPerson(){
-    var data1 = [];
-    this.yearPerson = this.formSearch.controls['yearPerson'].value;
+    var data1 = [100000000, 5000000000, 5500000000, 6000000000, 6500000000,7000000000, 7500000000, 8000000000  , 8500000000, 9000000000];
     this.reportService.getPersonAmountByYear(this.yearPerson).subscribe(response => {
       response.data.forEach(element => {
         data1.push(element.data);
       });
 
       const dataChart = {
-        labels: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6'
-                ,'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+        labels: [500],
         datasets: [
           {
-            label: 'Cư dân',
+            label: 'Diện tích',
             data: data1,
             fill: false,
             backgroundColor: '#42A5F5',

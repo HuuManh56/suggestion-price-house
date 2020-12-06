@@ -50,6 +50,7 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
   }
 
   public setFormValue(propertyConfigs: any, data?: any) {
+    this.propertyConfigs = propertyConfigs;
     if(data && data._id){
       this.id = data._id;
       this.formSave = this.buildForm(data, this.formConfig);
