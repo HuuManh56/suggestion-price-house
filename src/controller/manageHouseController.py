@@ -104,7 +104,7 @@ def get_all_house():
 @app.route("/api/house/create-house", methods=['POST'])
 # them moi nha
 def create_house():
-
+    try:
         try:
             body = ast.literal_eval(json.dumps(request.get_json()))
         except:
@@ -112,15 +112,12 @@ def create_house():
             # Add message for debugging purpose
             return "", 400
         record_created = collection.insert(body)
-
-        # Prepare the response
-        if isinstance(record_created, list):
-            # Return list of Id of the newly created item
-            return jsonify([str(v) for v in record_created]), 201
-        else:
-            # Return Id of the newly created item
-            return jsonify(str(record_created)), 201
-
+        res = responseData('SUCCESS', 'SUCCESS', '', str(record_created))
+        return dumps(res), 200
+    except Exception as e:
+        # Error while trying to update the resource
+        # Add message for debugging purpose
+        return e, 500
 
 
 # gợi ý giá nhà
