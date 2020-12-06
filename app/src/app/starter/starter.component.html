@@ -1,27 +1,8 @@
-
-
-
-
-
-<style>
-    .sonnx{
-        font-size: 100px;
-    }
-</style>
 <div fxLayout="row">
     <div fxFlex.gt-sm="50%">
         <mat-card>
             <mat-card-content>
-                <div  fxLayout="row">
-                    <div class="col-md-6 col-xl-6">
-                        <mat-card-title> Số phòng ngủ - Giá nhà  </mat-card-title>
-                    </div>
-                    <div class="col-md-6 col-xl-6">
-                        <p-dropdown [options]="listYear" [virtualScroll]="true" itemSize="30" (onChange)="changeYearPerson()"
-                        formControlName="yearPerson"></p-dropdown>
-                    </div>
-                </div>
-                <p-chart #chart type="bar" [data]="data"></p-chart>
+                <p-chart type="bar" [data]="dataBedroom" [options]="infoBedroom"></p-chart>
             </mat-card-content>
         </mat-card>
     </div>
@@ -29,18 +10,54 @@
     <div fxFlex.gt-sm="50%">
         <mat-card>
             <mat-card-content>
-                <div  fxLayout="row">
-                    <div class="col-md-6 col-xl-6">
-                        <mat-card-title> Diện tích - Giá nhà</mat-card-title>
-                    </div>
-                    <div class="col-md-6 col-xl-6">
-                        <p-dropdown [options]="listYear" [virtualScroll]="true" itemSize="30" (onChange)="changeYearPerson()"
-                        formControlName="yearPerson"></p-dropdown>
-                    </div>
-                </div>
-                <p-chart #chart type="bar" [data]="data"></p-chart>
+                <p-chart type="bar" [data]="dataBathroom" [options]="infoBathroom"></p-chart>
             </mat-card-content>
         </mat-card>
     </div>
-
 </div>
+<div fxLayout="row">
+    <div fxFlex.gt-sm="50%">
+        <mat-card>
+            <mat-card-content>
+                <p-chart type="bar" [data]="dataFloor" [options]="infoFloor"></p-chart>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="50%">
+        <mat-card>
+            <mat-card-content>
+                <p-chart type="bar" [data]="dataArea" [options]="infoArea"></p-chart>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div fxLayout="row">
+    <div fxFlex.gt-sm="50%">
+        <mat-card>
+            <mat-card-content>
+                <p-chart type="bar" [data]="dataFrontWidth" [options]="infoFrontWidth"></p-chart>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="50%">
+        <mat-card>
+            <mat-card-content>
+                <p-chart type="bar" [data]="dataInletWidth" [options]="infoInletWidth"></p-chart>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+    
+<div fxLayout="row">
+    <div fxFlex.gt-sm="100%">
+        <mat-card>
+            <mat-card-content>
+                <p-chart type="bar" [data]="dataDistanceCenter" [options]="infoDistanceCenter"></p-chart>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+    
+
+    
+    

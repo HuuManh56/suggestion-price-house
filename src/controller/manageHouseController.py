@@ -253,3 +253,64 @@ def responseData(type, code, message, data):
         "message": message,
         "data": data
     }
+
+# api get one
+@app.route("/api/house/get-statistic-data", methods=['GET'])
+def getStaticData():
+
+    #lay theo số phòng ngủ
+    outBed = []
+    for i in range(10):
+        i = i+ 1;
+        data = collection.find({"numberBedroom": i}).count();
+        outBed.append(data)
+    #lấy theo số phòng tắm
+    outBath = []
+    for i in range(10):
+        i = i + 1;
+        data = collection.find({"numberBathroom": i}).count();
+        outBath.append(data)
+    #lấy theo diện tích
+    dataArea =[]
+    for i in range(10):
+        indexGt = i*20;
+        indexLt = i*20 + 20;
+        data = collection.find({"area": {"$gt": indexGt, "$lt": indexLt }}).count();
+        dataArea.append(data)
+    #Lấy theo số tầng
+    dataFloor =[]
+    for i in range(8):
+        i = i + 1;
+        data = collection.find({"totalFloor": i}).count();
+        dataFloor.append(data)
+    #lây theo độ rộng mặt tiền
+    dataFrontWidth = []
+    for i in range(5):
+        indexGt = i*4;
+        indexLt = i*4 + 4;
+        data = collection.find({"frontWidth": {"$gt": indexGt, "$lt": indexLt }}).count();
+        dataFrontWidth.append(data)
+    #Lấy theo độ rộng đường vào
+    dataInletWidth = []
+    for i in range(10):
+        i = i + 1;
+        data = collection.find({"inletWidth": i}).count();
+        dataInletWidth.append(data)
+
+    #lấy theo khoảng cách so với trung tâm
+    dataDistanceCenter = []
+    for i in range(10):
+        indexGt = i * 2000;
+        indexLt = i * 2000 + 2000;
+        data = collection.find({"distanceCenter": {"$gt": indexGt, "$lt": indexLt }}).count();
+        dataDistanceCenter.append(data)
+
+
+    return jsonify({    "dataBed": outBed
+                       ,"dataBath": outBath
+                       ,"dataFloor": dataFloor
+                       ,"dataArea": dataArea
+                       ,"dataFrontWidth": dataFrontWidth
+                       ,"dataInletWidth": dataInletWidth
+                       ,"dataDistanceCenter": dataDistanceCenter
+                        });

@@ -41,4 +41,15 @@ export class HouseService extends BasicService {
     const url = id ? `${this.serviceUrl}/update-one-house/${id}` : `${this.serviceUrl}/create-house`;
     return this.postRequest(url, CommonUtils.convertData(item));
   }
+
+  public get(item: any, id?): Observable<any> {
+    const url = id ? `${this.serviceUrl}/update-one-house/${id}` : `${this.serviceUrl}/create-house`;
+    return this.postRequest(url, CommonUtils.convertData(item));
+  }
+
+  public getStatisticData():Observable<any> {
+    const url = `${this.serviceUrl}/get-statistic-data`;
+    return this.getRequest(url);
+  }
+
 }

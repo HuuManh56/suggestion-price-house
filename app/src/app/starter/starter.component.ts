@@ -4,166 +4,213 @@ import { MessageService } from 'primeng/api';
 import { ReportService } from '../core/services/report.service';
 import { BaseComponent } from '../shared/components/base-component/base-component.component';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { HouseService } from '../core/services/house.service';
+import { ACTION_FORM, RESOURCE } from '../core/app-config';
 
 @Component({
   selector: 'app-starter',
   templateUrl: './starter.component.html',
   styleUrls: ['./starter.component.scss']
 })
-export class StarterComponent extends BaseComponent implements AfterViewInit, OnInit {
+  export class StarterComponent extends BaseComponent implements OnInit {
+    // info
+    infoBedroom: any;
+    infoBathroom: any;
+    infoFloor: any;
+    infoArea: any;
+    infoFrontWidth: any;
+    infoInletWidth: any;
+    infoDistanceCenter: any;
 
-  public dataEvaluate: any;
-  public dataAverageScore: any;
+    // data
+    dataBedroom : any;
+    dataBathroom: any;
+    dataFloor: any;
+    dataArea: any;
+    dataFrontWidth: any;
+    dataInletWidth: any;
+    dataDistanceCenter: any;
 
-  public dataPerson = [];
-  public dataWater = [];
-  public dataElectric = [];
-  data: any =[];
-  dataChartBill: any =[];
-  dataChartEmployee: any =[];
-  listYear : any = [];
-  listMonth : any = [];  year : any;
-  yearPerson : any;
-  yearBill : any;
-  empty : any;
-  active : any;
-  totalPerson : any;
-  @ViewChild("chart") chart: UIChart; 
-  @ViewChild("chartBill") chartBill: UIChart; 
-  
-  constructor(private messageService: MessageService,
-    private reportService : ReportService) {
-      super(null);
-      var year = new Date().getFullYear();
-      this.setMainService(reportService);  
-      this.formSearch = this.buildForm({},{
-        yearPerson: [year],
-        yearBill: [year],
-      });
-      this.reportService.getDashBoard().subscribe(response => {
-        this.empty = response.data.empty;
-        this.active = response.data.active;
-        this.totalPerson = response.data.totalPerson;
-      });
-      
+  constructor(public actr: ActivatedRoute, public houseService : HouseService) {
+    super(actr, RESOURCE.HOUSE, ACTION_FORM.SEARCH);
+    this.setMainService(houseService);
+    this.getData();
   }
+
   ngOnInit() {
+    this.infoBedroom = {
+      title: {
+        display: true,
+        text: 'Số phòng ngủ',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    };
 
-    this.buildChartPerson();
-    // this.buildChartBill();
-    this.buildChartEmployee();
+    this.infoBathroom = {
+      title: {
+        display: true,
+        text: 'Số phòng tắm ',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    };
+
+    this.infoFloor = {
+      title: {
+        display: true,
+        text: 'Số tầng',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    };
+    this.infoArea = {
+      title: {
+        display: true,
+        text: 'Diện tích',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    };
+    this.infoFrontWidth = {
+      title: {
+        display: true,
+        text: 'Độ rộng mặt trước',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    };
+
+    this.infoInletWidth = {
+      title: {
+        display: true,
+        text: 'Độ rộng đường vào',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    };
+
+    this.infoDistanceCenter = {
+      title: {
+        display: true,
+        text: 'Khoảng cách so với trung tâm',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    };
+
   }
 
-  ngAfterViewInit() {
-  }
-
-  public get f() {
-    return this.formSearch.controls;
-  }
-
-  public buildChartPerson(){
-    var data1 = [100000000, 5000000000, 5500000000, 6000000000, 6500000000,7000000000, 7500000000, 8000000000  , 8500000000, 9000000000];
-    this.reportService.getPersonAmountByYear(this.yearPerson).subscribe(response => {
-      response.data.forEach(element => {
-        data1.push(element.data);
-      });
-
-      const dataChart = {
-        labels: [500],
+  public getData(){
+    debugger
+    this.houseService.getStatisticData().subscribe(res =>{
+      
+      this.dataBedroom = {
+        labels: [1,2,3,4,5,6,7,8,9,10],
         datasets: [
           {
-            label: 'Diện tích',
-            data: data1,
-            fill: false,
+            label: 'Số nhà',
             backgroundColor: '#42A5F5',
-            borderColor: '#1E88E5'
+            borderColor: '#1E88E5',
+            data: res.dataBed
           }
         ]
       }
-      this.data = Object.assign({}, dataChart);
-      this.chart.reinit(); 
-    });
-   
-  }
 
-  public buildChartEmployee(){
-    var data = [];
-    var labels =[];
-    this.reportService.getEmployeeAmountByYear(this.formSearch.controls['yearPerson'].value).subscribe(response => {
-      response.data.forEach(element => {
-        data.push(element.data);
-        labels.push(element.label);
-      });
-      
-      const dataChart = {
-        labels: labels,
+      this.dataBathroom = {
+        labels: [1,2,3,4,5,6,7,8,9,10],
         datasets: [
-            {
-                data: data,
-                backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#43eb34",
-                    "#b82cdb",
-                    "#f50290",
-                    "#fbff00",
-                    "#ff7700",
-                    "#6fff00"
-                ],
-                hoverBackgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56",
-                  "#43eb34",
-                  "#b82cdb",
-                  "#f50290",
-                  "#fbff00",
-                  "#ff7700",
-                  "#6fff00"
-                ]
-            }]    
-        };
-      this.dataChartEmployee = Object.assign({}, dataChart);
-    });
-    
-  }
+          {
+            label: 'Số nhà',
+            backgroundColor: '#42A5F5',
+            borderColor: '#1E88E5',
+            data: res.dataBath
+          }
+        ]
+      }
+      this.dataFloor = {
+        labels: [1,2,3,4,5,6,7,8],
+        datasets: [
+          {
+            label: 'Số nhà',
+            backgroundColor: '#42A5F5',
+            borderColor: '#1E88E5',
+            data: res.dataFloor
+          }
+        ]
+      }
 
-  // public buildChartBill(){
-  //   this.dataWater = [];
-  //   this.dataElectric = [];
-  //   this.yearBill = this.formSearch.controls['yearBill'].value;
-  //   this.reportService.getTotalPriceByYear(this.yearBill,2).subscribe(response => {
-  //     response.data.forEach(element => {
-  //       this.dataWater.push(element.data);
-  //     });
-  //     this.reportService.getTotalPriceByYear(this.yearBill,1).subscribe(response => {
-  //       response.data.forEach(element => {
-  //         this.dataElectric.push(element.data);
-  //       });
-  //       const dataChart = {
-  //         labels: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6'
-  //                 ,'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
-  //         datasets: [
-  //           {
-  //             label: 'Tiền nước',
-  //             data: this.dataWater,
-  //             fill: false,
-  //             borderColor: '#4bc0c0'
-  //           },
-  //           {
-  //             label: 'Tiền điện',
-  //             data: this.dataElectric,
-  //             fill: false,
-  //             borderColor: '#ff2200'
-  //           }
-  //         ]
-  //       }
-  //       this.dataChartBill = Object.assign({}, dataChart);
-  //       this.chartBill.reinit(); 
-  //     });
-  //   });
-    
-    
-  // }
+      this.dataArea = {
+        labels: [ "0-20","20-40","40-60","60-80","80-100",
+                  "100-120","120-140","140-160","160-180","180-200"
+                ],
+        datasets: [
+          {
+            label: 'Số nhà',
+            backgroundColor: '#42A5F5',
+            borderColor: '#1E88E5',
+            data: res.dataArea
+          }
+        ]
+      }
+
+      this.dataFrontWidth = {
+        labels: ["0-4","4-8","8-12","12-16","16-20"],
+        datasets: [
+          {
+            label: 'Số nhà',
+            backgroundColor: '#42A5F5',
+            borderColor: '#1E88E5',
+            data: res.dataFrontWidth
+          }
+        ]
+      }
+
+      this.dataInletWidth = {
+        labels: [1,2,3,4,5,6,7,8,9,10],
+        datasets: [
+          {
+            label: 'Số nhà',
+            backgroundColor: '#42A5F5',
+            borderColor: '#1E88E5',
+            data: res.dataInletWidth
+          }
+        ]
+      }
+
+      this.dataDistanceCenter = {
+        labels: [ "0-2000","2000-4000"
+                ,"4000-6000","6000-8000"
+                ,"8000-10000","10000-12000"
+                ,"12000-14000" ,"14000-16000"
+                ,"16000-18000" ,"18000-20000"
+              ],
+        datasets: [
+          {
+            label: 'Số nhà',
+            backgroundColor: '#42A5F5',
+            borderColor: '#1E88E5',
+            data: res.dataDistanceCenter
+          }
+        ]
+      };
+
+    })
+  }
+  
 }

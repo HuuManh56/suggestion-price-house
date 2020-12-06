@@ -50,9 +50,7 @@ export class BillElectricWarterSearchComponent extends BaseComponent implements 
   }
 
   processSearchHouse(){
-    debugger
     this.billWaterElectrictService.getAllHouse().subscribe( res =>{
-      alert("goi thanh cong ")
       this.apartmentList = res.data;
     } )
   }
