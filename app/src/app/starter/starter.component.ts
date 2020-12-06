@@ -48,56 +48,31 @@ export class StarterComponent extends BaseComponent implements AfterViewInit, On
       
   }
   ngOnInit() {
-    var year = new Date().getFullYear();
-    this.year = year;
-    this.yearPerson = year;
-    this.yearBill = year;
-    for (let index = year; index > year-11; index--) {
-      var item ={
-        label: index,
-        value: index
-      };
-      this.listYear.push(item);
-    }
-  for (let index = 1; index <= 12; index++) {
-    var item2 ={
-      label: index,
-      value: index
-    };
-    this.listMonth.push(item2);
-    
-  } 
+
     this.buildChartPerson();
-    this.buildChartBill();
+    // this.buildChartBill();
     this.buildChartEmployee();
   }
 
   ngAfterViewInit() {
   }
+
   public get f() {
     return this.formSearch.controls;
   }
-  public changeYearPerson(){
-    this.buildChartPerson();
-  }
-  public changeYearBill(){
-    this.buildChartBill();
-  }
 
   public buildChartPerson(){
-    var data1 = [];
-    this.yearPerson = this.formSearch.controls['yearPerson'].value;
+    var data1 = [100000000, 5000000000, 5500000000, 6000000000, 6500000000,7000000000, 7500000000, 8000000000  , 8500000000, 9000000000];
     this.reportService.getPersonAmountByYear(this.yearPerson).subscribe(response => {
       response.data.forEach(element => {
         data1.push(element.data);
       });
 
       const dataChart = {
-        labels: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6'
-                ,'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+        labels: [500],
         datasets: [
           {
-            label: 'Cư dân',
+            label: 'Diện tích',
             data: data1,
             fill: false,
             backgroundColor: '#42A5F5',
@@ -154,41 +129,41 @@ export class StarterComponent extends BaseComponent implements AfterViewInit, On
     
   }
 
-  public buildChartBill(){
-    this.dataWater = [];
-    this.dataElectric = [];
-    this.yearBill = this.formSearch.controls['yearBill'].value;
-    this.reportService.getTotalPriceByYear(this.yearBill,2).subscribe(response => {
-      response.data.forEach(element => {
-        this.dataWater.push(element.data);
-      });
-      this.reportService.getTotalPriceByYear(this.yearBill,1).subscribe(response => {
-        response.data.forEach(element => {
-          this.dataElectric.push(element.data);
-        });
-        const dataChart = {
-          labels: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6'
-                  ,'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
-          datasets: [
-            {
-              label: 'Tiền nước',
-              data: this.dataWater,
-              fill: false,
-              borderColor: '#4bc0c0'
-            },
-            {
-              label: 'Tiền điện',
-              data: this.dataElectric,
-              fill: false,
-              borderColor: '#ff2200'
-            }
-          ]
-        }
-        this.dataChartBill = Object.assign({}, dataChart);
-        this.chartBill.reinit(); 
-      });
-    });
+  // public buildChartBill(){
+  //   this.dataWater = [];
+  //   this.dataElectric = [];
+  //   this.yearBill = this.formSearch.controls['yearBill'].value;
+  //   this.reportService.getTotalPriceByYear(this.yearBill,2).subscribe(response => {
+  //     response.data.forEach(element => {
+  //       this.dataWater.push(element.data);
+  //     });
+  //     this.reportService.getTotalPriceByYear(this.yearBill,1).subscribe(response => {
+  //       response.data.forEach(element => {
+  //         this.dataElectric.push(element.data);
+  //       });
+  //       const dataChart = {
+  //         labels: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6'
+  //                 ,'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+  //         datasets: [
+  //           {
+  //             label: 'Tiền nước',
+  //             data: this.dataWater,
+  //             fill: false,
+  //             borderColor: '#4bc0c0'
+  //           },
+  //           {
+  //             label: 'Tiền điện',
+  //             data: this.dataElectric,
+  //             fill: false,
+  //             borderColor: '#ff2200'
+  //           }
+  //         ]
+  //       }
+  //       this.dataChartBill = Object.assign({}, dataChart);
+  //       this.chartBill.reinit(); 
+  //     });
+  //   });
     
     
-  }
+  // }
 }

@@ -12,6 +12,7 @@ from flask import request, jsonify
 import json
 import ast
 from importlib.machinery import SourceFileLoader
+import matplotlib.pyplot as plt
 
 # Import the helpers module
 helper_module = SourceFileLoader('*', './src/controller/helpers.py').load_module()
@@ -103,26 +104,23 @@ def get_all_house():
 @app.route("/api/house/create-house", methods=['POST'])
 # them moi nha
 def create_house():
-    try:
-        # Create new users
+
         try:
             body = ast.literal_eval(json.dumps(request.get_json()))
         except:
             # Bad request as request body is not available
             # Add message for debugging purpose
             return "", 400
-
         record_created = collection.insert(body)
 
         # Prepare the response
-        res = responseData('SUCCESS', 'SUCCESS', '', str(record_created))
-        print('res: {}'.format(res))
-        return dumps(res), 201
+        if isinstance(record_created, list):
+            # Return list of Id of the newly created item
+            return jsonify([str(v) for v in record_created]), 201
+        else:
+            # Return Id of the newly created item
+            return jsonify(str(record_created)), 201
 
-    except:
-        # Error while trying to create the resource
-        # Add message for debugging purpose
-        return "", 500
 
 
 # gợi ý giá nhà
@@ -164,7 +162,7 @@ def suggestion():
                                float(args['area']),float(args['frontWidth']),float(args['inletWidth']),float(args['distanceCenter'])]])
     print('predict: {}'.format(int(predict)))
 
-    query_params = helper_module.parse_query_params(request.query_string)
+
     formSearch = {}
     # formSearch['numberBedroom'] = int(args['numberBedroom']);
     # formSearch['numberBathroom'] = int(args['numberBathroom']);
@@ -199,7 +197,7 @@ def delete_house(id):
         delete_house = collection.delete_one({"_id": ObjectId(id)})
         if delete_house.deleted_count > 0:
             res = responseData('SUCCESS', 'SUCCESS', '', "OK")
-            return dumps(res), 200
+            return dumps(res)
         else:
             # Resource Not found
             return "", 404
@@ -210,7 +208,7 @@ def delete_house(id):
 
 
 # api get one
-@app.route("/api/house/get-one-house/<id>", methods=['GET'])
+@app.route("/api/house/<id>", methods=['GET'])
 def findOneHouse(id):
     try:
         collection = db.house
@@ -240,7 +238,7 @@ def updateMovie(id):
             # Prepare the response as resource is updated successfully
             record_created = collection.insert(body)
             res = responseData('SUCCESS', 'SUCCESS', '', record_created)
-            return dumps(res), 200
+            return dumps(res)
         else:
             # Bad request as the resource is not available to update
             # Add message for debugging purpose
