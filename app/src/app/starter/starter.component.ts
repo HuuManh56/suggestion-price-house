@@ -22,6 +22,7 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
     infoFrontWidth: any;
     infoInletWidth: any;
     infoDistanceCenter: any;
+    infoAll: any;
 
     // data
     dataBedroom : any;
@@ -31,6 +32,8 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
     dataFrontWidth: any;
     dataInletWidth: any;
     dataDistanceCenter: any;
+    dataAll: any;
+
 
   constructor(public actr: ActivatedRoute, public houseService : HouseService) {
     super(actr, RESOURCE.HOUSE, ACTION_FORM.SEARCH);
@@ -39,10 +42,21 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
   }
 
   ngOnInit() {
+    this.infoAll = {
+      title: {
+        display: true,
+        text: 'Thông tin - giá nhà ',
+        fontSize: 16
+      },
+      legend: {
+        position: 'top'
+      }
+    };
+
     this.infoBedroom = {
       title: {
         display: true,
-        text: 'Số phòng ngủ',
+        text: 'Số phòng ngủ - giá nhà ',
         fontSize: 16
       },
       legend: {
@@ -53,7 +67,7 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
     this.infoBathroom = {
       title: {
         display: true,
-        text: 'Số phòng tắm ',
+        text: 'Số phòng tắm - giá nhà ',
         fontSize: 16
       },
       legend: {
@@ -64,7 +78,7 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
     this.infoFloor = {
       title: {
         display: true,
-        text: 'Số tầng',
+        text: 'Số tầng - giá nhà',
         fontSize: 16
       },
       legend: {
@@ -74,7 +88,7 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
     this.infoArea = {
       title: {
         display: true,
-        text: 'Diện tích',
+        text: 'Diện tích - giá nhà ',
         fontSize: 16
       },
       legend: {
@@ -84,7 +98,7 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
     this.infoFrontWidth = {
       title: {
         display: true,
-        text: 'Độ rộng mặt trước',
+        text: 'Độ rộng mặt trước - giá nhà',
         fontSize: 16
       },
       legend: {
@@ -95,7 +109,7 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
     this.infoInletWidth = {
       title: {
         display: true,
-        text: 'Độ rộng đường vào',
+        text: 'Độ rộng đường vào - giá nhà ',
         fontSize: 16
       },
       legend: {
@@ -106,7 +120,7 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
     this.infoDistanceCenter = {
       title: {
         display: true,
-        text: 'Khoảng cách so với trung tâm',
+        text: 'Khoảng cách so với trung tâm - giá nhà ',
         fontSize: 16
       },
       legend: {
@@ -117,14 +131,12 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
   }
 
   public getData(){
-    debugger
     this.houseService.getStatisticData().subscribe(res =>{
-      
       this.dataBedroom = {
-        labels: [1,2,3,4,5,6,7,8,9,10],
+        labels: res.dataPrice,
         datasets: [
           {
-            label: 'Số nhà',
+            label: 'Số phòng ngủ',
             backgroundColor: '#42A5F5',
             borderColor: '#1E88E5',
             data: res.dataBed
@@ -133,10 +145,10 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
       }
 
       this.dataBathroom = {
-        labels: [1,2,3,4,5,6,7,8,9,10],
+        labels:res.dataPrice,
         datasets: [
           {
-            label: 'Số nhà',
+            label: 'Số phòng tắm',
             backgroundColor: '#42A5F5',
             borderColor: '#1E88E5',
             data: res.dataBath
@@ -144,10 +156,10 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
         ]
       }
       this.dataFloor = {
-        labels: [1,2,3,4,5,6,7,8],
+        labels: res.dataPrice,
         datasets: [
           {
-            label: 'Số nhà',
+            label: 'Số tầng',
             backgroundColor: '#42A5F5',
             borderColor: '#1E88E5',
             data: res.dataFloor
@@ -156,12 +168,10 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
       }
 
       this.dataArea = {
-        labels: [ "0-20","20-40","40-60","60-80","80-100",
-                  "100-120","120-140","140-160","160-180","180-200"
-                ],
+        labels: res.dataPrice,
         datasets: [
           {
-            label: 'Số nhà',
+            label: 'Diện tích',
             backgroundColor: '#42A5F5',
             borderColor: '#1E88E5',
             data: res.dataArea
@@ -170,10 +180,10 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
       }
 
       this.dataFrontWidth = {
-        labels: ["0-4","4-8","8-12","12-16","16-20"],
+        labels: res.dataPrice,
         datasets: [
           {
-            label: 'Số nhà',
+            label: 'Độ rộng mặt trước',
             backgroundColor: '#42A5F5',
             borderColor: '#1E88E5',
             data: res.dataFrontWidth
@@ -182,10 +192,10 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
       }
 
       this.dataInletWidth = {
-        labels: [1,2,3,4,5,6,7,8,9,10],
+        labels: res.dataPrice,
         datasets: [
           {
-            label: 'Số nhà',
+            label: 'Độ rộng đường vào ',
             backgroundColor: '#42A5F5',
             borderColor: '#1E88E5',
             data: res.dataInletWidth
@@ -194,15 +204,10 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
       }
 
       this.dataDistanceCenter = {
-        labels: [ "0-2000","2000-4000"
-                ,"4000-6000","6000-8000"
-                ,"8000-10000","10000-12000"
-                ,"12000-14000" ,"14000-16000"
-                ,"16000-18000" ,"18000-20000"
-              ],
+        labels: res.dataPrice,
         datasets: [
           {
-            label: 'Số nhà',
+            label: 'Khoảng cách so với trung tâm',
             backgroundColor: '#42A5F5',
             borderColor: '#1E88E5',
             data: res.dataDistanceCenter
@@ -210,6 +215,56 @@ import { ACTION_FORM, RESOURCE } from '../core/app-config';
         ]
       };
 
+
+      this.dataAll = {
+        labels: res.dataPrice,
+        datasets: [
+          {
+            label: 'Số phòng ngủ',
+            fill: false,
+            borderColor: '#02bec9',
+            data: res.dataBed
+          },
+          {
+            label: 'Số phòng tắm',
+            fill: false,
+            borderColor: '#6610f2',
+            data: res.dataBath
+          },
+          {
+            label: 'Số tầng',
+            fill: false,
+            borderColor: '#e83e8c',
+            data: res.dataFloor
+          },
+          {
+            label: 'Diện tích',
+            fill: false,
+            borderColor: '#fd7e14',
+            data: res.dataArea
+          },
+          {
+            label: 'Độ rộng mặt trước',
+            fill: false,
+            borderColor: '#28a745',
+            data: res.dataArea
+          },
+          {
+            label: 'Độ rộng đường vào ',
+            fill: false,
+            borderColor: '#ffb22b',
+            data: res.dataInletWidth
+          },
+          {
+            label: 'Khoảng cách so với trung tâm',
+            fill: false,
+            borderColor: '#eb4b0e',
+            data: res.dataDistanceCenter
+          }
+        ]
+      }
+
+      
     })
   }
   
