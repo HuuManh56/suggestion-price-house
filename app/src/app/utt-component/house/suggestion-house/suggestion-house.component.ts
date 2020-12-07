@@ -44,10 +44,11 @@ export class SuggestionHouseComponent  extends BaseComponent implements OnInit {
   };
 
   ngOnInit() {
-    // this.processSuggestion();
+    
   }
 
   public processSuggestion(){
+    
     if (!CommonUtils.isValidForm(this.formSearch) ) {
       return;
     }

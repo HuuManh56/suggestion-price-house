@@ -69,21 +69,11 @@ export class ManagerHouseComponent extends BaseComponent implements OnInit {
       this.activeFormModal(this.modalService, ManageHouseFormComponent, null);
     }
   }
-  // public processSearch(event?): void {
-  //   if (!CommonUtils.isValidForm(this.formSearch)) {
-  //     return;
-  //   }
-  //   const params = this.formSearch ? this.formSearch.value : null;
-  //   this.houseService.searchData(params, event).subscribe(res => {
-  //     this.resultList = res;
-  //   });
-
-  //   if (!event) {
-  //     if (this.dataTable) {
-  //       this.dataTable.first = 0;
-  //     }
-  //   }
-  // }
+  public processClearData(){
+    this.houseService.clearData() .subscribe(res => {
+        this.processSearch();
+      });
+  }
   public get f() {
     return this.formSearch.controls;
   }

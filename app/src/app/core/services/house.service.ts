@@ -52,4 +52,14 @@ export class HouseService extends BasicService {
     return this.getRequest(url);
   }
 
+  public clearData():Observable<any> {
+    const url = `${this.serviceUrl}/clear-data`;
+    return this.getRequest(url);
+  }
+
+  public writeDataCSV():Observable<any> {
+    const url = `${this.serviceUrl}/write-data`;
+    return this.getRequest(url);
+  }
+
 }

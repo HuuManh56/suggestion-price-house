@@ -26,7 +26,7 @@ export class ManageHouseFormComponent extends BaseComponent implements OnInit {
     frontWidth:     ['',[Validators.required,Validators.max(20),Validators.min(3)]],
     inletWidth:     ['',[Validators.required,Validators.max(10),Validators.min(1)]],
     distanceCenter: ['',[Validators.required,Validators.max(30000),Validators.min(10)]],
-    price: ['',[Validators.max(50000000000),Validators.min(100000000)]]
+    price: ['',[Validators.required,Validators.max(50000000000),Validators.min(100000000)]]
   };
 
   constructor(   

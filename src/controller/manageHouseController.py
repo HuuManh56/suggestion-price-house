@@ -21,6 +21,31 @@ helper_module = SourceFileLoader('*', './src/controller/helpers.py').load_module
 db = client.SuggestionPriceHouse
 # Select the collection
 collection = db.house
+try:
+    field_names = ["numberBedroom", "numberBathroom", "totalFloor", "area", "frontWidth", "inletWidth"
+        , "distanceCenter", "price"]
+    data_python = collection.find()
+    with open('data.csv', 'w', newline='') as f_output:
+        csv_output = csv.writer(f_output)
+        csv_output.writerow(field_names)
+
+        for data in data_python:
+            csv_output.writerow(
+                [
+                    data['numberBedroom'],
+                    data['numberBathroom'],
+                    data['totalFloor'],
+                    data['area'],
+                    data['frontWidth'],
+                    data['inletWidth'],
+                    data['distanceCenter'],
+                    data['price']
+                ])
+except Exception as e:
+    print(e)
+    # Error while trying to update the resource
+    # Add message for debugging purpose
+
 
 
 @app.route("/")
@@ -132,11 +157,9 @@ def suggestion():
     # read data
     data = []
 
-    with open('dataTest.csv') as f:
+    with open('data.csv') as f:
         for line in f:
             inner_list = [elt.strip() for elt in line.split(',')]
-            # in alternative, if you need to use the file content as numbers
-            # inner_list = [int(elt.strip()) for elt in line.split(',')]
             data.append(inner_list)
     print(data)
     data = np.delete(data, 0, axis=0)  # remove row first
@@ -266,7 +289,7 @@ def getStaticData():
     dataFrontWidth = []
     dataInletWidth = []
     dataDistanceCenter = []
-    for p in collection.find({"price": {"$lt": 2000000000 }}):
+    for p in collection.find():
         outPrice.append(p["price"]);
         outBed.append(p["numberBedroom"]);
         outBath.append(p["numberBathroom"]);
@@ -334,3 +357,46 @@ def getStaticData():
                        ,"dataDistanceCenter": dataDistanceCenter
                         ,"dataPrice": outPrice
                         });
+
+# làm sạch du lieu
+@app.route("/api/house/clear-data", methods=['GET'])
+def clearData():
+    try:
+        # thực hiện xóa bản ghi có số phòng < số phòng tắm , số tầng > số phòng ngủ
+        dataClear =[]
+        house = collection.find({ "$where": "this.numberBedroom < this.numberBathroom || this.numberBedroom < this.totalFloor" })
+        for p in house:
+            print("idxoa",p["_id"])
+            collection.delete_one({"_id": p["_id"]})
+        # xóa bản ghi có trường null
+        dataNull = collection.find({ "$or": [{"numberBedroom": { "$exists" : False }},{"numberBathroom":{ "$exists" : False}}
+                                            ,{"totalFloor":{ "$exists" : False }},{"area": { "$exists" : False } }
+                                            ,{"frontWidth":{ "$exists" : False }},{"inletWidth":{ "$exists" : False }}
+                                            ,{"distanceCenter":{ "$exists" :False}},{"price":{ "$exists" : False }}]
+                                    })
+        for p in dataNull:
+            print("idxoa",p["_id"])
+            collection.delete_one({"_id": p["_id"]})
+
+        #Xóa các bản ghi có dữ liệu không thỏa mãn điều kiện
+
+        dataValidate = collection.find(
+            {"$or": [{"numberBedroom": {"$or": [{"$gt": 10}, {"$lt": 1}]}}
+                # , {"numberBathroom": {"$exists": False}}
+                # , {"totalFloor": {"$exists": False}}, {"area": {"$exists": False}}
+                # , {"frontWidth": {"$exists": False}}, {"inletWidth": {"$exists": False}}
+                # , {"distanceCenter": {"$exists": False}}, {"price": {"$exists": False}}
+                     ]
+            })
+        for p in dataValidate:
+            print("idxoa", p["_id"])
+            collection.delete_one({"_id": p["_id"]})
+        res = responseData('SUCCESS', 'SUCCESS', '', str(""))
+        return dumps(res), 200
+    except Exception as e:
+        # Error while trying to update the resource
+        # Add message for debugging purpose
+        return e, 500
+#ghi file
+# @app.route("/api/house/clear-data", methods=['GET'])
+# def writeData():
